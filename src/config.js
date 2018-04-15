@@ -8,6 +8,14 @@
  */
 
 /* eslint-disable max-len */
+const path = require('path');
+const env = require('node-env-file');
+
+if (__DEV__) {
+  env(path.resolve('.env.development'), { overwrite: true });
+} else {
+  env(path.resolve('.env.production'), { overwrite: true });
+}
 
 if (process.env.BROWSER) {
   throw new Error(

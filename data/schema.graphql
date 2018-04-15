@@ -1,0 +1,111 @@
+scalar DateTime
+
+input LogoutInput {
+  clientMutationId: String
+}
+
+type LogoutPayload {
+  state: Boolean!
+  clientMutationId: String
+}
+
+type Mutation {
+  # Social authentication
+  socialAuth(input: SocialAuthInput!): SocialAuthPayload
+  logout(input: LogoutInput!): LogoutPayload
+}
+
+# An object with an ID
+interface Node {
+  # The ID of the object.
+  id: ID!
+}
+
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+type Query {
+  viewer: UserNode
+
+  # The ID of the object
+  node(id: ID!): Node
+}
+
+input SocialAuthInput {
+  provider: String!
+  accessToken: String!
+  clientMutationId: String
+}
+
+type SocialAuthPayload {
+  social: SocialNode
+  viewer: UserNode
+  clientMutationId: String
+}
+
+scalar SocialCamelJSON
+
+type SocialNode implements Node {
+  # The ID of the object.
+  id: ID!
+  user: UserNode!
+  provider: String!
+  uid: String!
+  extraData: SocialCamelJSON
+}
+
+type SocialNodeConnection {
+  pageInfo: PageInfo!
+  edges: [SocialNodeEdge]!
+}
+
+type SocialNodeEdge {
+  # The item at the end of the edge
+  node: SocialNode
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type UserNode implements Node {
+  # The ID of the object.
+  id: ID!
+  lastLogin: DateTime
+
+  # 해당 사용자에게 모든 권한을 허가합니다.
+  isSuperuser: Boolean!
+
+  # 150자 이하 문자, 숫자 그리고 @/./+/-/_만 가능합니다.
+  username: String!
+  firstName: String!
+  lastName: String!
+  email: String!
+
+  # 사용자가 관리사이트에 로그인이 가능한지를 나타냅니다.
+  isStaff: Boolean!
+
+  # 이 사용자가 활성화되어 있는지를 나타냅니다. 계정을 삭제하는 대신 이것을 선택 해제하세요.
+  isActive: Boolean!
+  dateJoined: DateTime!
+  socialAuth(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    uid: String
+    uid_In: String
+    provider: String
+    provider_In: String
+  ): SocialNodeConnection
+}
