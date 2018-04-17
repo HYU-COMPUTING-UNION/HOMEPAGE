@@ -21,12 +21,19 @@ import Footer from '../Footer';
 class Layout extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
+    viewer: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  };
+
+  static defaultProps = {
+    viewer: null,
   };
 
   render() {
+    const { viewer } = this.props;
+
     return (
       <div>
-        <Header />
+        <Header viewer={viewer} />
         {this.props.children}
         <Feedback />
         <Footer />

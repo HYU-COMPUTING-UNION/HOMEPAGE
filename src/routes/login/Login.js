@@ -65,7 +65,7 @@ class Login extends React.Component {
             </a>
           </div>
           <div className={s.formGroup}>
-            <a className={s.twitter} href="/login/twitter">
+            <a className={s.kakao} href="/login/kakao">
               <svg
                 className={s.icon}
                 width="30"
@@ -73,52 +73,59 @@ class Login extends React.Component {
                 viewBox="0 0 30 30"
                 xmlns="http://www.w3.org/2000/svg"
               >
+                <g
+                  transform="translate(0.000000,35.000000) scale(0.100000,-0.100000)"
+                  fill="#000000"
+                  stroke="none"
+                >
+                  <path
+                    d={
+                      'M105 275 c-40 -21 -55 -43 -55 -80 0 -21 9 -40 26 -55 18 -18 23 -31 ' +
+                      '19 -48 -6 -23 -5 -23 22 -8 15 8 45 17 65 21 21 3 51 17 68 31 91 77 -34 196 ' +
+                      '-145 139z'
+                    }
+                  />
+                </g>
+              </svg>
+              <span className={s.kakaoText}>Log in with Kakao</span>
+            </a>
+          </div>
+          <div className={s.formGroup}>
+            <a className={s.naver} href="/login/naver">
+              <svg
+                className={s.icon}
+                width="30"
+                height="30"
+                viewBox="0 0 340.000000 340.000000"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
+                  fill="#ffffff"
+                  fillOpacity="1"
+                  stroke="none"
+                  strokeOpacity="1"
+                  strokeWidth="1"
+                  strokeDasharray="none"
+                  strokeLinejoin="miter"
+                  strokeLinecap="butt"
+                  strokeDashoffset=""
+                  fillRule="nonzero"
+                  opacity="1"
+                  markerStart=""
+                  markerMid=""
+                  markerEnd=""
                   d={
-                    'M30 6.708c-1.105.49-2.756 1.143-4 1.292 1.273-.762 2.54-2.56 ' +
-                    '3-4-.97.577-2.087 1.355-3.227 1.773L25 5c-1.12-1.197-2.23-2-4-2-3.398 0-6 ' +
-                    '2.602-6 6 0 .4.047.7.11.956L15 10C9 10 5.034 8.724 2 5c-.53.908-1 1.872-1 ' +
-                    '3 0 2.136 1.348 3.894 3 5-1.01-.033-2.17-.542-3-1 0 2.98 4.186 6.432 7 7-1 ' +
-                    '1-4.623.074-5 0 .784 2.447 3.31 3.95 6 4-2.105 1.648-4.647 2.51-7.53 2.51-.5 ' +
-                    '0-.988-.03-1.47-.084C2.723 27.17 6.523 28 10 28c11.322 0 17-8.867 17-17 ' +
-                    '0-.268.008-.736 0-1 1.2-.868 2.172-2.058 3-3.292z'
+                    'M 84.62499492429204 92.12499481253333 L 84.6875 247.5 L ' +
+                    '141.5625 247.5 L 142.5 168.125 L 195.9375 247.1875 L ' +
+                    '254.6875 247.5 L 254.375 92.1875 L 196.25 92.1875 L ' +
+                    '196.5625 173.4375 L 142.8125 92.5 L 84.62499492429204 ' +
+                    '92.12499481253333 z'
                   }
                 />
               </svg>
-              <span>Log in with Twitter</span>
+              <span>Log in with Naver</span>
             </a>
           </div>
-          <strong className={s.lineThrough}>OR</strong>
-          <form method="post">
-            <div className={s.formGroup}>
-              <label className={s.label} htmlFor="usernameOrEmail">
-                Username or email address:
-                <input
-                  className={s.input}
-                  id="usernameOrEmail"
-                  type="text"
-                  name="usernameOrEmail"
-                  autoFocus // eslint-disable-line jsx-a11y/no-autofocus
-                />
-              </label>
-            </div>
-            <div className={s.formGroup}>
-              <label className={s.label} htmlFor="password">
-                Password:
-                <input
-                  className={s.input}
-                  id="password"
-                  type="password"
-                  name="password"
-                />
-              </label>
-            </div>
-            <div className={s.formGroup}>
-              <button className={s.button} type="submit">
-                Log in
-              </button>
-            </div>
-          </form>
         </div>
       </div>
     );

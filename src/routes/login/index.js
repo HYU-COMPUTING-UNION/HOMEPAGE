@@ -10,10 +10,17 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import Login from './Login';
+import { checkLogin } from '../../api';
 
 const title = 'Log In';
 
-function action() {
+async function action({ api }) {
+  const state = await checkLogin(api);
+
+  if (state.login) {
+    return { redirect: '/' };
+  }
+
   return {
     chunks: ['login'],
     title,

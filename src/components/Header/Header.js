@@ -8,6 +8,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Header.css';
 import Link from '../Link';
@@ -16,11 +17,21 @@ import logoUrl from './logo-small.png';
 import logoUrl2x from './logo-small@2x.png';
 
 class Header extends React.Component {
+  static propTypes = {
+    viewer: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  };
+
+  static defaultProps = {
+    viewer: null,
+  };
+
   render() {
+    const { viewer } = this.props;
+
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <Navigation />
+          <Navigation viewer={viewer} />
           <Link className={s.brand} to="/">
             <img
               src={logoUrl}

@@ -91,4 +91,26 @@ function create({ baseUrl, headers = {} }) {
   };
 }
 
+export async function checkLogin(api, query = '{ viewer { id } }') {
+  try {
+    const resp = await api.fetch('/graphql', {
+      method: 'POST',
+      body: JSON.stringify({ query }),
+    });
+
+    const { data, errors } = await resp.json();
+
+    if (errors) {
+      return { login: false };
+    }
+
+    return {
+      login: true,
+      data,
+    };
+  } catch (e) {
+    return { login: false };
+  }
+}
+
 export default { create };

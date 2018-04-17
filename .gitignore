@@ -25,5 +25,11 @@ yarn-error.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# ftpconfig
+.ftpconfig
+
+# auto generated from relay-runtime
+__graphql__/
+
 # Misc
 .DS_Store

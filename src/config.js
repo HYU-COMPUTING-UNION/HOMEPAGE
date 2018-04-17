@@ -10,17 +10,26 @@
 /* eslint-disable max-len */
 const path = require('path');
 const env = require('node-env-file');
-
-if (__DEV__) {
-  env(path.resolve('.env.development'), { overwrite: true });
-} else {
-  env(path.resolve('.env.production'), { overwrite: true });
-}
+const fs = require('fs');
 
 if (process.env.BROWSER) {
   throw new Error(
     'Do not import `config.js` from inside the client-side code.',
   );
+}
+
+const secret = JSON.parse(fs.readFileSync(path.resolve('secret.json'), 'utf8'));
+
+if (__DEV__) {
+  env(path.resolve('.env.development'), { overwrite: true });
+  Object.entries(secret.env.dev).forEach(([key, value]) => {
+    process.env[key] = value;
+  });
+} else {
+  env(path.resolve('.env.production'), { overwrite: true });
+  Object.entries(secret.env.prod).forEach(([key, value]) => {
+    process.env[key] = value;
+  });
 }
 
 module.exports = {
@@ -51,8 +60,6 @@ module.exports = {
 
   // Authentication
   auth: {
-    jwt: { secret: process.env.JWT_SECRET || 'React Starter Kit' },
-
     // https://developers.facebook.com/
     facebook: {
       id: process.env.FACEBOOK_APP_ID || '186244551745631',
@@ -68,12 +75,16 @@ module.exports = {
       secret: process.env.GOOGLE_CLIENT_SECRET || 'Y8yR9yZAhm9jQ8FKAL8QIEcd',
     },
 
-    // https://apps.twitter.com/
-    twitter: {
-      key: process.env.TWITTER_CONSUMER_KEY || 'Ie20AZvLJI2lQD5Dsgxgjauns',
-      secret:
-        process.env.TWITTER_CONSUMER_SECRET ||
-        'KTZ6cxoKnEakQCeSpZlaUCJWGAlTEBJj0y2EMkUBujA7zWSvaQ',
+    // https://developers.kakao.com
+    kakao: {
+      id: process.env.KAKAO_CLIENT_ID,
+      secret: process.env.KAKAO_CLIENT_SECRET,
+    },
+
+    // https://developers.naver.com
+    naver: {
+      id: process.env.NAVER_CLIENT_ID,
+      secret: process.env.NAVER_CLIENT_SECRET,
     },
   },
 };

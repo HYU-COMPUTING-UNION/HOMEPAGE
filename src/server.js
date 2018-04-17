@@ -18,6 +18,7 @@ import App from './components/App';
 import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
+import passport from './passport';
 import router from './router';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
 import chunks from './chunk-manifest.json'; // eslint-disable-line import/no-unresolved
@@ -38,6 +39,8 @@ global.navigator = global.navigator || {};
 global.navigator.userAgent = global.navigator.userAgent || 'all';
 
 const app = express();
+const getApi = req =>
+  Api.create({ baseUrl: config.api.serverUrl, headers: req.headers });
 
 //
 // If you are using proxy from external machine, you can set TRUST_PROXY env
@@ -52,6 +55,158 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+//
+// Authentication
+// -----------------------------------------------------------------------------
+app.use(passport.initialize());
+
+const socialAuth = `
+  mutation login($provider: String!, $accessToken: String!) {
+    socialAuth(input: {provider: $provider, accessToken: $accessToken}) {
+      viewer {
+        id
+      }
+    }
+  }
+`;
+
+const login = async (res, api, provider, accessToken) => {
+  try {
+    const resp = await api.fetch('/graphql', {
+      method: 'POST',
+      body: JSON.stringify({
+        query: socialAuth,
+        variables: { provider, accessToken },
+      }),
+    });
+
+    const { errors } = await resp.json();
+
+    if (errors) {
+      console.error(errors, null, 2);
+      res.redirect('/login');
+      return;
+    }
+
+    if (resp.headers.has('set-cookie')) {
+      res.set('set-cookie', resp.headers.getAll('set-cookie'));
+    } else {
+      throw new Error('login failed');
+    }
+
+    res.redirect('/');
+  } catch (e) {
+    console.error(e);
+    res.redirect('/login');
+  }
+};
+
+// facebook
+app.get(
+  '/login/facebook',
+  passport.authenticate('facebook', {
+    scope: ['email'],
+    session: false,
+  }),
+);
+app.get(
+  '/login/facebook/return',
+  passport.authenticate('facebook', {
+    failureRedirect: '/login',
+    session: false,
+  }),
+  async (req, res) => {
+    await login(res, getApi(req), 'facebook', req.user.accessToken);
+  },
+);
+
+// google
+app.get(
+  '/login/google',
+  passport.authenticate('google', {
+    scope: [
+      'https://www.googleapis.com/auth/plus.login',
+      'https://www.googleapis.com/auth/plus.me',
+      'https://www.googleapis.com/auth/userinfo.email',
+      'https://www.googleapis.com/auth/userinfo.profile',
+    ],
+    session: false,
+  }),
+);
+app.get(
+  '/login/google/return',
+  passport.authenticate('google', {
+    failureRedirect: '/login',
+    session: false,
+  }),
+  async (req, res) => {
+    await login(res, getApi(req), 'google-oauth2', req.user.accessToken);
+  },
+);
+
+// kakao
+app.get(
+  '/login/kakao',
+  passport.authenticate('kakao', {
+    session: false,
+  }),
+);
+app.get(
+  '/login/kakao/return',
+  passport.authenticate('kakao', {
+    failureRedirect: '/login',
+    session: false,
+  }),
+  async (req, res) => {
+    await login(res, getApi(req), 'kakao', req.user.accessToken);
+  },
+);
+
+// naver
+app.get(
+  '/login/naver',
+  passport.authenticate('naver', {
+    session: false,
+  }),
+);
+app.get(
+  '/login/naver/return',
+  passport.authenticate('naver', {
+    failureRedirect: '/login',
+    session: false,
+  }),
+  async (req, res) => {
+    await login(res, getApi(req), 'naver', req.user.accessToken);
+  },
+);
+
+//
+// Grahql just forwarding to api server
+// -----------------------------------------------------------------------------
+app.post('/graphql', async (req, res) => {
+  const api = getApi(req);
+
+  res.set('content-type', 'application/json');
+  try {
+    const resp = await api.fetch('/graphql', {
+      method: 'POST',
+      body: JSON.stringify(req.body),
+    });
+
+    res.send(JSON.stringify(await resp.json()));
+  } catch (e) {
+    res.send(
+      JSON.stringify({
+        errors: [
+          {
+            message: e.message,
+          },
+        ],
+      }),
+    );
+  }
+});
 
 //
 // Register server-side rendering middleware
@@ -75,7 +230,7 @@ app.get('*', async (req, res, next) => {
       pathname: req.path,
       query: req.query,
       // Api
-      api: Api.create({ baseUrl: config.api.serverUrl, headers: req.headers }),
+      api: getApi(req),
     };
 
     const route = await router.resolve(context);

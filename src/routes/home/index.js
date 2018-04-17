@@ -10,14 +10,24 @@
 import React from 'react';
 import Home from './Home';
 import Layout from '../../components/Layout';
+import { checkLogin } from '../../api';
 
-async function action() {
+async function action({ api }) {
+  const status = await checkLogin(api);
+  let viewer;
+
+  if (status.data) {
+    viewer = status.data.viewer;
+  } else {
+    viewer = null;
+  }
+
   return {
     title: 'React Starter Kit',
     chunks: ['home'],
     component: (
-      <Layout>
-        <Home />
+      <Layout viewer={viewer}>
+        <Home viewer={viewer} />
       </Layout>
     ),
   };
