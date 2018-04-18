@@ -19,6 +19,10 @@
  * Base styles
  * ========================================================================== */
 
+.content {
+  min-height: stretch;
+}
+
 html {
   color: #222;
   font-weight: 100;

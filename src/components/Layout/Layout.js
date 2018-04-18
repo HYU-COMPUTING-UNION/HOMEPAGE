@@ -34,7 +34,7 @@ class Layout extends React.Component {
     return (
       <div>
         <Header viewer={viewer} />
-        {this.props.children}
+        <div className={s.content}>{this.props.children}</div>
         <Feedback />
         <Footer />
       </div>
