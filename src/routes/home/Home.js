@@ -26,7 +26,7 @@ class Home extends React.Component {
 
     return (
       <div className={s.root}>
-        {viewer ? <div>Hi, {viewer.id}</div> : <div>Home</div>}
+        {viewer ? <div>Hi, {viewer.profile.name}</div> : <div>Home</div>}
       </div>
     );
   }

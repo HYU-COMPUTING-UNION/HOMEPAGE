@@ -53,7 +53,9 @@ class Navigation extends React.Component {
 
       if (errors) {
         console.error(errors);
-      } else if (history) {
+      }
+
+      if (history) {
         history.push('/');
       }
     } catch (e) {

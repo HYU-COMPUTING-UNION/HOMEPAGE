@@ -33,3 +33,6 @@ __graphql__/
 
 # Misc
 .DS_Store
+
+# vscode
+.vscode

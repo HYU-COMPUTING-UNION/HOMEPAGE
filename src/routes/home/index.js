@@ -13,12 +13,25 @@ import Layout from '../../components/Layout';
 import { checkLogin } from '../../api';
 
 async function action({ api }) {
-  const status = await checkLogin(api);
   let viewer;
 
-  if (status.data) {
-    viewer = status.data.viewer;
-  } else {
+  try {
+    const status = await checkLogin(
+      api,
+      '{ viewer { id profile { id name isAffiliationAuthenticated } } }',
+    );
+
+    if (status.data && status.data.viewer) {
+      viewer = status.data.viewer;
+
+      if (!viewer.profile || !viewer.profile.isAffiliationAuthenticated) {
+        return { redirect: '/auth' };
+      }
+    } else {
+      viewer = null;
+    }
+  } catch (e) {
+    console.error(e);
     viewer = null;
   }
 

@@ -1,0 +1,16 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 10px;
+  max-width: 380px;
+}
+
+.label {
+  display: flex;
+  justify-content: space-around;
+}
+
+.input {
+  margin-left: 10px;
+}
