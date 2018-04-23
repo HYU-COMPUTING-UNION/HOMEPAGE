@@ -1,4 +1,93 @@
+type AnswerNode implements Node {
+  # The ID of the object.
+  id: ID!
+  petition: PetitionNode!
+  content: String!
+  answeredAt: DateTime!
+}
+
+type AnswerNodeConnection {
+  pageInfo: PageInfo!
+  edges: [AnswerNodeEdge]!
+}
+
+type AnswerNodeEdge {
+  # The item at the end of the edge
+  node: AnswerNode
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input AuthenticateInput {
+  name: String!
+  studentId: String!
+  clientMutationId: String
+}
+
+type AuthenticatePayload {
+  state: Boolean!
+  clientMutationId: String
+}
+
+type CategoryNode implements Node {
+  # The ID of the object.
+  id: ID!
+  name: String!
+  parent: CategoryNode
+  petitions(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): PetitionNodeConnection
+  subCategories(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CategoryNodeConnection
+}
+
+type CategoryNodeConnection {
+  pageInfo: PageInfo!
+  edges: [CategoryNodeEdge]!
+}
+
+type CategoryNodeEdge {
+  # The item at the end of the edge
+  node: CategoryNode
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input CreatePetitionInput {
+  title: String!
+  content: String!
+  clientMutationId: String
+}
+
+type CreatePetitionPayload {
+  petition: PetitionNode
+  clientMutationId: String
+}
+
+# The `DateTime` scalar type represents a DateTime
+# value as specified by
+# [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
 scalar DateTime
+
+input LoginInput {
+  username: String!
+  password: String!
+  clientMutationId: String
+}
+
+type LoginPayload {
+  viewer: UserNode
+  clientMutationId: String
+}
 
 input LogoutInput {
   clientMutationId: String
@@ -10,9 +99,13 @@ type LogoutPayload {
 }
 
 type Mutation {
+  createPetition(input: CreatePetitionInput!): CreatePetitionPayload
+
   # Social authentication
   socialAuth(input: SocialAuthInput!): SocialAuthPayload
   logout(input: LogoutInput!): LogoutPayload
+  login(input: LoginInput!): LoginPayload
+  authenticate(input: AuthenticateInput!): AuthenticatePayload
 }
 
 # An object with an ID
@@ -35,7 +128,104 @@ type PageInfo {
   endCursor: String
 }
 
+type PetitionNode implements Node {
+  # The ID of the object.
+  id: ID!
+  issuer: ProfileNode!
+  assentients(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProfileNodeConnection
+  categories(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CategoryNodeConnection
+  title: String!
+  content: String!
+  issuedAt: DateTime!
+  expiredAt: DateTime!
+  isInProgress: Boolean!
+  answer: AnswerNode
+  assentientCount: Int!
+  isExpired: Boolean!
+  isAnswered: Boolean!
+}
+
+type PetitionNodeConnection {
+  pageInfo: PageInfo!
+  edges: [PetitionNodeEdge]!
+}
+
+type PetitionNodeEdge {
+  # The item at the end of the edge
+  node: PetitionNode
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type ProfileNode implements Node {
+  # The ID of the object.
+  id: ID!
+  name: String!
+  studentId: String!
+  isAffiliationAuthenticated: Boolean!
+  assentientPetitions(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): PetitionNodeConnection
+  users(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): UserNodeConnection
+  issuedPetitions(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): PetitionNodeConnection
+}
+
+type ProfileNodeConnection {
+  pageInfo: PageInfo!
+  edges: [ProfileNodeEdge]!
+}
+
+type ProfileNodeEdge {
+  # The item at the end of the edge
+  node: ProfileNode
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
 type Query {
+  petitions(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): PetitionNodeConnection
+  answers(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): AnswerNodeConnection
+  categories(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CategoryNodeConnection
   viewer: UserNode
 
   # The ID of the object
@@ -98,14 +288,28 @@ type UserNode implements Node {
   # 이 사용자가 활성화되어 있는지를 나타냅니다. 계정을 삭제하는 대신 이것을 선택 해제하세요.
   isActive: Boolean!
   dateJoined: DateTime!
+  profile: ProfileNode
   socialAuth(
     before: String
     after: String
     first: Int
     last: Int
-    uid: String
-    uid_In: String
     provider: String
     provider_In: String
+    uid: String
+    uid_In: String
   ): SocialNodeConnection
+}
+
+type UserNodeConnection {
+  pageInfo: PageInfo!
+  edges: [UserNodeEdge]!
+}
+
+type UserNodeEdge {
+  # The item at the end of the edge
+  node: UserNode
+
+  # A cursor for use in pagination
+  cursor: String!
 }
