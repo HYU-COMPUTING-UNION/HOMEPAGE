@@ -91,7 +91,10 @@ function create({ baseUrl, headers = {} }) {
   };
 }
 
-export async function checkLogin(api, query = '{ viewer { id } }') {
+export async function checkLogin(
+  api,
+  query = '{ viewer { id profile { id name isAffiliationAuthenticated } } }',
+) {
   try {
     const resp = await api.fetch('/graphql', {
       method: 'POST',
