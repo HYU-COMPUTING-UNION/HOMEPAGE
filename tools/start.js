@@ -220,6 +220,7 @@ async function start() {
         middleware: [server],
         open: !process.argv.includes('--silent'),
         ...(isDebug ? {} : { notify: false, ui: false }),
+        ghostMode: false,
       },
       (error, bs) => (error ? reject(error) : resolve(bs)),
     ),
