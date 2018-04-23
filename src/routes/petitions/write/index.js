@@ -8,25 +8,23 @@
  */
 
 import React from 'react';
-import Layout from '../../components/Layout';
-import Login from './Login';
-import { checkLogin } from '../../api';
+import Layout from '../../../components/Layout';
+import Write from './Write';
 
-const title = '로그인';
+const title = 'Write Page';
+const isAdmin = false;
 
-async function action({ api }) {
-  const state = await checkLogin(api);
-
-  if (state.login) {
-    return { redirect: '/' };
+function action() {
+  if (!isAdmin) {
+    return { redirect: '/login' };
   }
 
   return {
-    chunks: ['login'],
+    chunks: ['admin'],
     title,
     component: (
       <Layout>
-        <Login title={title} />
+        <Write title={title} />
       </Layout>
     ),
   };

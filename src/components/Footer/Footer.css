@@ -10,8 +10,8 @@
 @import '../variables.css';
 
 .root {
-  background: #333;
-  color: #fff;
+  background: #fafafa;
+  color: #454f5d;
 }
 
 .container {
@@ -22,11 +22,11 @@
 }
 
 .text {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .spacer {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(0, 0, 0, 0.3);
 }
 
 .text,
@@ -38,10 +38,10 @@
 .link,
 .link:active,
 .link:visited {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.6);
   text-decoration: none;
 }
 
 .link:hover {
-  color: rgba(255, 255, 255, 1);
+  color: rgba(0, 0, 0, 1);
 }

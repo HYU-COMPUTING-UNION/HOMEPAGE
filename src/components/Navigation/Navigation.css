@@ -9,7 +9,8 @@
 
 .root {
   float: right;
-  margin: 6px 0 0;
+
+  /* margin: 6px 0 0; */
 }
 
 .link {
@@ -22,11 +23,11 @@
 .link,
 .link:active,
 .link:visited {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .link:hover {
-  color: rgba(255, 255, 255, 1);
+  color: rgba(0, 0, 0, 1);
 }
 
 .button {
@@ -41,8 +42,4 @@
 
 .button:active {
   border: none;
-}
-
-.spacer {
-  color: rgba(255, 255, 255, 0.3);
 }

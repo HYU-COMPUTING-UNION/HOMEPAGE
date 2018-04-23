@@ -15,7 +15,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import normalizeCss from 'normalize.css';
 import s from './Layout.css';
 import Header from '../Header';
-import Feedback from '../Feedback';
+// import Feedback from '../Feedback';
 import Footer from '../Footer';
 
 class Layout extends React.Component {
@@ -35,7 +35,7 @@ class Layout extends React.Component {
       <div>
         <Header viewer={viewer} />
         <div className={s.content}>{this.props.children}</div>
-        <Feedback />
+        {/* <Feedback /> */}
         <Footer />
       </div>
     );
