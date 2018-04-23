@@ -112,6 +112,26 @@
   background: #2795e9;
 }
 
+.naver {
+  border-color: #01c939;
+  background: #01c939;
+  composes: button;
+}
+
+.naver:hover {
+  background: #00ac30;
+}
+
+.kakao {
+  border-color: #ffcd01;
+  background: #ffcd01;
+  composes: button;
+}
+
+.kakao:hover {
+  background: #daaf00;
+}
+
 .icon {
   display: inline-block;
   margin: -2px 12px -2px 0;

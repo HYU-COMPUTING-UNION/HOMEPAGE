@@ -8,18 +8,23 @@
  */
 
 import React from 'react';
-import Layout from '../../components/Layout';
-import Login from './Login';
+import Layout from '../../../components/Layout';
+import Admin from './Write';
 
-const title = '로그인';
+const title = 'Write Page';
+const isAdmin = false;
 
 function action() {
+  if (!isAdmin) {
+    return { redirect: '/login' };
+  }
+
   return {
-    chunks: ['login'],
+    chunks: ['admin'],
     title,
     component: (
       <Layout>
-        <Login title={title} />
+        <Write title={title} />
       </Layout>
     ),
   };

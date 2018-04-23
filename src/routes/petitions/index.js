@@ -9,17 +9,17 @@
 
 import React from 'react';
 import Layout from '../../components/Layout';
-import Login from './Login';
+import Petitions from './Petitions';
 
-const title = '로그인';
+const title = '청원제목';
 
 function action() {
   return {
-    chunks: ['login'],
+    chunks: ['contact'],
     title,
     component: (
       <Layout>
-        <Login title={title} />
+        <Petitions title={title} />
       </Layout>
     ),
   };

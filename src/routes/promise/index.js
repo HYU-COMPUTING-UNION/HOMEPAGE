@@ -9,17 +9,17 @@
 
 import React from 'react';
 import Layout from '../../components/Layout';
-import Login from './Login';
+import Promise from './Promise';
 
-const title = '로그인';
+const title = '소프트웨어융합대학으로 한 걸음';
 
 function action() {
   return {
-    chunks: ['login'],
+    chunks: ['promise'],
     title,
     component: (
       <Layout>
-        <Login title={title} />
+        <Promise title={title} />
       </Layout>
     ),
   };
