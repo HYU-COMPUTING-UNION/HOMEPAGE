@@ -109,6 +109,9 @@ const config = {
             ['@babel/preset-react', { development: isDebug }],
           ],
           plugins: [
+            // Convert GraphQL to runtime artifacts
+            // https://www.npmjs.com/package/babel-plugin-relay
+            'babel-plugin-relay',
             // Treat React JSX elements as value types and hoist them to the highest scope
             // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-constant-elements
             ...(isDebug ? [] : ['@babel/transform-react-constant-elements']),
