@@ -10,16 +10,29 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import Petitions from './Petitions';
+import { checkLogin } from '../../api';
 
 const title = '청원제목';
 
-function action() {
+async function action({ api, params }) {
+  let viewer = null;
+
+  try {
+    const status = await checkLogin(api);
+
+    if (status.data && status.data.viewer) {
+      viewer = status.data.viewer;
+    }
+  } catch (e) {
+    console.error(e);
+  }
+
   return {
     chunks: ['contact'],
     title,
     component: (
-      <Layout>
-        <Petitions title={title} />
+      <Layout viewer={viewer}>
+        <Petitions title={title} viewer={viewer} petitionId={params.id} />
       </Layout>
     ),
   };

@@ -14,27 +14,132 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Petitions.css';
 
 class Petitions extends React.Component {
+  static contextTypes = {
+    api: PropTypes.object.isRequired,
+    history: PropTypes.object,
+  };
+
   static propTypes = {
-    title: PropTypes.string.isRequired,
+    viewer: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+    petitionId: PropTypes.string.isRequired,
+  };
+
+  static defaultProps = {
+    viewer: null,
+  };
+
+  state = {
+    petition: null,
+  };
+
+  async componentDidMount() {
+    const { petitionId } = this.props;
+    const { api, history } = this.context;
+
+    try {
+      const resp = await api.fetch('/graphql', {
+        method: 'POST',
+        body: JSON.stringify({
+          query: `
+            query petition($id: ID!) {
+              node(id: $id) { id ...on PetitionNode {
+                title content issuedAt expiredAt isExpired isInProgress
+                assentientCount categories { edges { node { id name } } } }
+              }
+            }
+          `,
+          variables: { id: petitionId },
+        }),
+      });
+
+      const { data, errors } = await resp.json();
+
+      if (!resp.ok || errors) {
+        if (errors) console.error(errors);
+        return;
+      }
+
+      if (data) {
+        if (data.node) {
+          // eslint-disable-next-line react/no-did-mount-set-state
+          this.setState({ petition: data.node });
+        } else if (history) {
+          history.push('/not-found');
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  handleRecommend = async () => {
+    const { viewer, petitionId } = this.props;
+    const { api } = this.context;
+
+    if (!viewer) {
+      console.info('login required');
+      return;
+    }
+
+    if (!viewer.profile || !viewer.profile.isAffiliationAuthenticated) {
+      console.info('affiliation authentication required');
+      return;
+    }
+
+    try {
+      const resp = await api.fetch('/graphql', {
+        method: 'POST',
+        body: JSON.stringify({
+          query: `
+            mutation agreePetition($petitionId: ID!) {
+              agreePetition(input: { petitionId: $petitionId }) { state }
+            }
+          `,
+          variables: { petitionId },
+        }),
+      });
+
+      const { data, errors } = await resp.json();
+
+      if (!resp.ok || errors) {
+        if (errors) console.error(errors);
+        return;
+      }
+
+      if (data && data.agreePetition && data.agreePetition.state) {
+        console.info('succeed agreeing');
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   render() {
-    return (
+    const { petition } = this.state;
+    return petition ? (
       <div className={s.root}>
         <div className={s.container}>
           <div className={s.petition}>
-            <h1 className={s.title}>{this.props.title}</h1>
+            <h1 className={s.title}>{petition.title}</h1>
             <div className={s.info}>
-              <p className={s.status}>대기</p>
+              <p className={s.status}>
+                {petition.isInProgress ? '진행' : '대기'}
+              </p>
               <p className={s.spacer}> | </p>
-              <p className={s.branch}>카테고리</p>
+              <p className={s.branch}>
+                {petition.categories.edges.length
+                  ? petition.categories.edges[0].node.name
+                  : '없음'}
+              </p>
               <p className={s.spacer}> | </p>
-              <p className={s.date}>2018.04.12</p>
+              <p className={s.date}>{petition.issuedAt}</p>
             </div>
             <h3>청원 개요</h3>
-            <p>...</p>
+            <p>{petition.content}</p>
             <div className={s.buttonWrapper}>
-              <button className={s.button}>추천하기</button>
+              <button className={s.button} onClick={this.handleRecommend}>
+                추천하기
+              </button>
             </div>
           </div>
           <div className={s.bannerWrapper}>
@@ -62,6 +167,8 @@ class Petitions extends React.Component {
           </div>
         </div>
       </div>
+    ) : (
+      <div>Loading...</div>
     );
   }
 }

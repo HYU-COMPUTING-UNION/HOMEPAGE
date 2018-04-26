@@ -49,12 +49,17 @@ const routes = {
     },
     {
       path: '/petitions',
-      load: () => import(/* webpackChunkName: 'petitions' */ './petitions'),
-    },
-    {
-      path: '/petitions/write',
-      load: () =>
-        import(/* webpackChunkName: 'petitions/write' */ './petitions/write'),
+      children: [
+        {
+          path: '/write',
+          load: () =>
+            import(/* webpackChunkName: 'petitions/write' */ './petitions/write'),
+        },
+        {
+          path: '/:id',
+          load: () => import(/* webpackChunkName: 'petitions' */ './petitions'),
+        },
+      ],
     },
     {
       path: '/promise',
@@ -73,7 +78,7 @@ const routes = {
     const route = await next();
 
     // Provide default values for title, description etc.
-    route.title = `${route.title || 'Untitled Page'} - www.reactstarterkit.com`;
+    route.title = `${route.title || 'Untitled Page'} - www.hycomputing.org`;
     route.description = route.description || '';
 
     return route;

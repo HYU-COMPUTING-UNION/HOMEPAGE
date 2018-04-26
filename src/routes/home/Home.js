@@ -8,12 +8,68 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Home.css';
 import Link from '../../components/Link';
 
 class Home extends React.Component {
+  static contextTypes = {
+    api: PropTypes.object.isRequired,
+    history: PropTypes.object,
+  };
+
+  state = {
+    petitions: {},
+    answeredPetitions: {},
+  };
+
+  async componentDidMount() {
+    const { api } = this.context;
+    try {
+      const resp = await api.fetch('/graphql', {
+        method: 'POST',
+        body: JSON.stringify({
+          query: `
+            fragment petitionsFields on PetitionNodeConnection {
+              edges { node { id title issuedAt isAnswered isInProgress
+                categories { edges { node { id name } } } } }
+            }
+
+            query petitions {
+              p: petitions(isAnswered: false) { ...petitionsFields }
+              ap: petitions(isAnswered: true) { ...petitionsFields } # answered petitions
+            }
+          `,
+        }),
+      });
+
+      const { data, errors } = await resp.json();
+
+      if (!resp.ok || errors) {
+        if (errors) console.error(errors);
+        return;
+      }
+
+      if (data) {
+        if (data.p) {
+          // eslint-disable-next-line react/no-did-mount-set-state
+          this.setState({ petitions: data.p });
+        }
+
+        if (data.ap) {
+          // eslint-disable-next-line react/no-did-mount-set-state
+          this.setState({ answeredPetitions: data.ap });
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   render() {
+    const { petitions, answeredPetitions } = this.state;
+
     return (
       <div className={s.root}>
         <div className={s.container}>
@@ -30,35 +86,43 @@ class Home extends React.Component {
             </Link>
           </div>
           <h1>청원 목록</h1>
-          <Link to="/petitions">
-            <div className={s.ask}>
-              <div>
-                <p className={s.status}>대기</p>
-                <span className={s.spacer}> | </span>
-                <p className={s.branch}>분류</p>
-                <span className={s.spacer}> | </span>
-                <p className={s.date}>2018.04.12</p>
-              </div>
-              <h2 className={s.title}>청원 제목</h2>
-            </div>
-          </Link>
-          <div className={s.ask}>
-            <p className={s.status}>진행</p>
-            <span className={s.spacer}> | </span>
-            <p className={s.branch}>분류</p>
-            <span className={s.spacer}> | </span>
-            <p className={s.date}>2018.04.12</p>
-            <h2 className={s.title}>청원 제목</h2>
-          </div>
+          {petitions.edges &&
+            petitions.edges.map(edge => (
+              <Link key={edge.node.id} to={`/petitions/${edge.node.id}`}>
+                <div className={s.ask}>
+                  <div>
+                    <p className={s.status}>
+                      {edge.node.isInProgress ? '진행' : '대기'}
+                    </p>
+                    <span className={s.spacer}> | </span>
+                    <p className={s.branch}>
+                      {edge.node.categories.edges.length
+                        ? edge.node.categories.edges[0].node.name
+                        : '없음'}
+                    </p>
+                    <span className={s.spacer}> | </span>
+                    <p className={s.date}>{edge.node.issuedAt}</p>
+                  </div>
+                  <h2 className={s.title}>{edge.node.title}</h2>
+                </div>
+              </Link>
+            ))}
           <h1>답변된 청원</h1>
-          <div className={s.ask}>
-            <p className={s.status}>완료</p>
-            <span className={s.spacer}> | </span>
-            <p className={s.branch}>분류</p>
-            <span className={s.spacer}> | </span>
-            <p className={s.date}>2018.04.12</p>
-            <h2 className={s.title}>청원 제목</h2>
-          </div>
+          {answeredPetitions.edges &&
+            answeredPetitions.edges.map(edge => (
+              <div key={edge.node.id} className={s.ask}>
+                <p className={s.status}>완료</p>
+                <span className={s.spacer}> | </span>
+                <p className={s.branch}>
+                  {edge.node.categories.edges.length
+                    ? edge.node.categories.edges[0].node.name
+                    : '없음'}
+                </p>
+                <span className={s.spacer}> | </span>
+                <p className={s.date}>{edge.node.issuedAt}</p>
+                <h2 className={s.title}>{edge.node.title}</h2>
+              </div>
+            ))}
         </div>
       </div>
     );
