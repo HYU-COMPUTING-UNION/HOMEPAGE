@@ -32,7 +32,8 @@ class Write extends React.Component {
                 <option value="1">교육</option>
                 <option value="2">복지</option>
                 <option value="3">시설</option>
-                <option value="4">기타</option>
+                <option value="4">행사</option>
+                <option value="5">기타</option>
             </select>
             <div className={s.inputWrapper}>
                 <input type="text" placeholder="제목을 입력해주세요."/>
