@@ -21,43 +21,25 @@ class Promise extends React.Component {
           <section>
             {/* <h2>복지</h2> */}
             <div className={s.boxWrapper}>
-              <div className={cx(s.box, s.img1)}>
-                <div />
-              </div>
-              <div className={cx(s.box, s.img2)}>
-                <div />
-              </div>
-              <div className={cx(s.box, s.img3)}>
-                <div />
-              </div>
+              <div className={cx(s.box, s.img1)}/>
+              <div className={cx(s.box, s.img2)}/>
+              <div className={cx(s.box, s.img3)}/>
             </div>
           </section>
           <section>
             {/* <h2>교육 및 취업</h2> */}
             <div className={s.boxWrapper}>
-              <div className={cx(s.box, s.img4)}>
-                <div />
-              </div>
-              <div className={cx(s.box, s.img5)}>
-                <div />
-              </div>
-              <div className={cx(s.box, s.img6)}>
-                <div />
-              </div>
+              <div className={cx(s.box, s.img4)}/>
+              <div className={cx(s.box, s.img5)}/>
+              <div className={cx(s.box, s.img6)}/>
             </div>
           </section>
           <section>
             {/* <h2>소통</h2> */}
             <div className={s.boxWrapper}>
-              <div className={cx(s.box, s.img7)}>
-                <div />
-              </div>
-              <div className={cx(s.box, s.img8)}>
-                <div />
-              </div>
-              <div className={cx(s.box, s.img9)}>
-                <div />
-              </div>
+              <div className={cx(s.box, s.img7)}/>
+              <div className={cx(s.box, s.img8)}/>
+              <div className={cx(s.box, s.img9)}/>
             </div>
           </section>
         </div>

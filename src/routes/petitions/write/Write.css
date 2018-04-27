@@ -7,15 +7,156 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-@import '../../../components/variables.css';
-
-.root {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.container {
-  margin: 0 auto;
-  padding: 0 0 40px;
-  max-width: var(--max-content-width);
-}
+ @import '../../../components/variables.css';
+ 
+ .root {
+   padding-left: 20px;
+   padding-right: 20px;
+ }
+ 
+ .container {
+   margin: 0 auto;
+   padding: 0 0 40px;
+   max-width: var(--max-content-width);
+ }
+ 
+ .caution {
+   border: #d9d9d9 solid 1px;
+   padding-bottom: 20px;
+   text-align: center;
+   width: 100%;
+   margin: auto;
+   padding: 15px;
+ }
+ 
+ .bold {
+     font-weight: 350;
+ }
+ 
+ .content {
+     text-align: left;
+ }
+ 
+ .inputWrapper{
+     position: relative;
+     font-weight: 400;
+     font-style: normal;
+     display: -webkit-inline-box;
+     display: -ms-inline-flexbox;
+     display: inline-flex;
+     color: rgba(0,0,0,.87);
+     width: 80%;
+     margin-top:1em;
+     input {
+         border-color: transparent !important;
+         background-color: transparent!important;
+         padding: 0!important;
+         -webkit-box-shadow: none!important;
+         box-shadow: none!important;
+         border-radius: 0!important;
+         margin: 0;
+         max-width: 100%;
+         -webkit-box-flex: 1;
+         -ms-flex: 1 0 auto;
+         flex: 1 0 auto;
+         outline: 0;
+         -webkit-tap-highlight-color: rgba(255,255,255,0);
+         text-align: left;
+         line-height: 1.21428571em;
+         font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+         padding: .67857143em 1em;
+         background: #fff;
+         border: 1px solid rgba(34,36,38,.15);
+         color: rgba(0,0,0,.87);
+         border-radius: .28571429rem;
+         -webkit-transition: border-color .1s ease,-webkit-box-shadow .1s ease;
+         transition: border-color .1s ease,-webkit-box-shadow .1s ease;
+         transition: box-shadow .1s ease,border-color .1s ease;
+         transition: box-shadow .1s ease,border-color .1s ease,-webkit-box-shadow .1s ease;
+         -webkit-box-shadow: none;
+         box-shadow: none;
+     }
+ }
+ 
+ .textareaWrapper {
+     clear: both;
+     margin-top: 1em;
+     textarea {
+         height: 12em;
+         margin: 0;
+         -webkit-appearance: none;
+         tap-highlight-color: rgba(255,255,255,0);
+         padding: .78571429em 1em;
+         background: #fff;
+         border: 1px solid rgba(34,36,38,.15);
+         outline: 0;
+         color: rgba(0,0,0,.87);
+         border-radius: .28571429rem;
+         -webkit-box-shadow: 0 0 0 0 transparent inset;
+         box-shadow: 0 0 0 0 transparent inset;
+         -webkit-transition: color .1s ease,border-color .1s ease;
+         transition: color .1s ease,border-color .1s ease;
+         font-size: 1em;
+         line-height: 1.2857;
+         resize: vertical;
+         width: 100%;
+     }
+ }
+ 
+ .dropdown {
+     cursor: pointer;
+     word-wrap: break-word;
+     line-height: 1em;
+     white-space: normal;
+     outline: 0;
+     -webkit-transform: rotateZ(0);
+     transform: rotateZ(0);
+     min-height: 2.71428571em;
+     background: #fff;
+     display: inline-block;
+     padding: .78571429em 2.1em .78571429em 1em;
+     color: rgba(0,0,0,.87);
+     -webkit-box-shadow: none;
+     box-shadow: none;
+     border: 0;
+     -webkit-transition: width .1s ease,-webkit-box-shadow .1s ease;
+     transition: width .1s ease,-webkit-box-shadow .1s ease;
+     transition: box-shadow .1s ease,width .1s ease;
+     transition: box-shadow .1s ease,width .1s ease,-webkit-box-shadow .1s ease;
+     option {
+         font-weight: normal;
+         display: block;
+         white-space: pre;
+         min-height: 1.2em;
+         padding: 0px 2px 1px;
+     }
+ }
+ 
+ .button {
+   background: transparent none !important;
+   color: black !important;
+   font-weight: 400;
+   border-radius: 0.28571429rem;
+   text-transform: none;
+   text-shadow: none !important;
+   -webkit-box-shadow: 0 0 0 1px rgb(34,36,38) inset;
+   box-shadow: 0 0 0 1px rgb(34,36,38) inset;
+   cursor: pointer;
+   display: inline-block;
+   min-height: 1em;
+   outline: 0;
+   border: none;
+   vertical-align: baseline;
+   margin: 0 0.25em 0 0;
+   padding: 0.78571429em 1.5em 0.78571429em;
+   line-height: 1em;
+   font-style: normal;
+   text-align: center;
+   text-decoration: none;
+ }
+ 
+ .buttonWrapper {
+   width: 100%;
+   text-align: center;
+   margin-top: 1em;
+ }
