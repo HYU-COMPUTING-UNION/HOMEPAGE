@@ -137,9 +137,16 @@ class Petitions extends React.Component {
             <h3>청원 개요</h3>
             <p>{petition.content}</p>
             <div className={s.buttonWrapper}>
-              <button className={s.button} onClick={this.handleRecommend}>
-                추천하기
-              </button>
+              {true ? (
+                <div className={s.buttonWrapper}>
+                  <button className={s.button}>추천하기</button>
+                </div>
+              ) : (
+                <div className={s.answer}>
+                  <h2>A</h2>
+                  <p>fdsjiofjsdiofjsdoifjdsoi</p>
+                </div>
+              )}
             </div>
           </div>
           <div className={s.bannerWrapper}>
@@ -155,11 +162,11 @@ class Petitions extends React.Component {
             </div>
             <div className={s.banner}>
               <h3>답변된 청원</h3>
-              <ul>
-                <li />
-                <li />
-                <li />
-              </ul>
+              <div className={s.list}>
+                <a>asd</a>
+                <a>gfdv</a>
+                <a>tre</a>
+              </div>
             </div>
             <div className={s.banner}>
               <div className={cx(s.ad, s.button)} />

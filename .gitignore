@@ -36,3 +36,5 @@ __graphql__/
 
 # vscode
 .vscode
+secret.key
+package-lock.json
