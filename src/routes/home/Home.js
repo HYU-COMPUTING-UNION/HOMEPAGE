@@ -110,18 +110,20 @@ class Home extends React.Component {
           <h1>답변된 청원</h1>
           {answeredPetitions.edges &&
             answeredPetitions.edges.map(edge => (
-              <div key={edge.node.id} className={s.ask}>
-                <p className={s.status}>완료</p>
-                <span className={s.spacer}> | </span>
-                <p className={s.branch}>
-                  {edge.node.categories.edges.length
-                    ? edge.node.categories.edges[0].node.name
-                    : '없음'}
-                </p>
-                <span className={s.spacer}> | </span>
-                <p className={s.date}>{edge.node.issuedAt}</p>
-                <h2 className={s.title}>{edge.node.title}</h2>
-              </div>
+              <Link key={edge.node.id} to={`/petitions/${edge.node.id}`}>
+                <div key={edge.node.id} className={s.ask}>
+                  <p className={s.status}>완료</p>
+                  <span className={s.spacer}> | </span>
+                  <p className={s.branch}>
+                    {edge.node.categories.edges.length
+                      ? edge.node.categories.edges[0].node.name
+                      : '없음'}
+                  </p>
+                  <span className={s.spacer}> | </span>
+                  <p className={s.date}>{edge.node.issuedAt}</p>
+                  <h2 className={s.title}>{edge.node.title}</h2>
+                </div>
+              </Link>
             ))}
         </div>
       </div>
