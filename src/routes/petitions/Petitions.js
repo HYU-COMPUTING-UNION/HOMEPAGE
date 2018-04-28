@@ -11,6 +11,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import Progress from '../../components/Progress';
 import s from './Petitions.css';
 
 class Petitions extends React.Component {
@@ -30,6 +31,7 @@ class Petitions extends React.Component {
 
   state = {
     petition: null,
+    buttonDisabled: false,
   };
 
   async componentDidMount() {
@@ -44,6 +46,7 @@ class Petitions extends React.Component {
             query petition($id: ID!) {
               node(id: $id) { id ...on PetitionNode {
                 title content issuedAt expiredAt isExpired isInProgress
+                answer { id content answeredAt }
                 assentientCount categories { edges { node { id name } } } }
               }
             }
@@ -86,6 +89,8 @@ class Petitions extends React.Component {
       return;
     }
 
+    this.setState({ buttonDisabled: true });
+
     try {
       const resp = await api.fetch('/graphql', {
         method: 'POST',
@@ -112,10 +117,12 @@ class Petitions extends React.Component {
     } catch (e) {
       console.error(e);
     }
+
+    this.setState({ buttonDisabled: false });
   };
 
   render() {
-    const { petition } = this.state;
+    const { petition, buttonDisabled } = this.state;
     return petition ? (
       <div className={s.root}>
         <div className={s.container}>
@@ -137,14 +144,20 @@ class Petitions extends React.Component {
             <h3>청원 개요</h3>
             <p>{petition.content}</p>
             <div className={s.buttonWrapper}>
-              {true ? (
+              {!petition.answer ? (
                 <div className={s.buttonWrapper}>
-                  <button className={s.button}>추천하기</button>
+                  <button
+                    className={s.button}
+                    onClick={this.handleRecommend}
+                    disabled={buttonDisabled}
+                  >
+                    추천하기
+                  </button>
                 </div>
               ) : (
                 <div className={s.answer}>
-                  <h2>A</h2>
-                  <p>fdsjiofjsdiofjsdoifjdsoi</p>
+                  <h2>답변</h2>
+                  <p>{petition.answer.content}</p>
                 </div>
               )}
             </div>
@@ -163,9 +176,9 @@ class Petitions extends React.Component {
             <div className={s.banner}>
               <h3>답변된 청원</h3>
               <div className={s.list}>
-                <a>asd</a>
-                <a>gfdv</a>
-                <a>tre</a>
+                <a href="/">asd</a>
+                <a href="/">gfdv</a>
+                <a href="/">tre</a>
               </div>
             </div>
             <div className={s.banner}>
@@ -175,7 +188,9 @@ class Petitions extends React.Component {
         </div>
       </div>
     ) : (
-      <div>Loading...</div>
+      <div className={s.root}>
+        <Progress />
+      </div>
     );
   }
 }
