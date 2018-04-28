@@ -32,7 +32,6 @@ class Input extends React.Component {
       <input
         className={cx(className, cn)}
         ref={ref => (this._input = ref)} // eslint-disable-line no-return-assign
-        focus={error}
         {...props}
       />
     );
