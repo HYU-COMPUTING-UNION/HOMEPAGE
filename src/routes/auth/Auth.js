@@ -10,30 +10,47 @@ class Auth extends React.Component {
   };
 
   state = {
-    studentID: '',
+    email: '',
     name: '',
-    authFail: false,
+    error: null,
+    succeed: false,
   };
 
-  authenticate = async () => {
-    const { studentID, name } = this.state;
-    const { api, history } = this.context;
+  sendEmail = async () => {
+    const { email, name } = this.state;
+    const { api } = this.context;
+
+    const re = /^[a-zA-Z0-9_.+-]+@hanyang\.ac\.kr$/;
+
+    this.setState({ error: null, succeed: false });
+
+    if (!name.trim()) {
+      this.setState({ error: '이름을 입력하세요.' });
+      return;
+    }
+
+    if (!email.trim()) {
+      this.setState({ error: '이메일을 입력하세요.' });
+      return;
+    }
+
+    if (!re.test(email)) {
+      this.setState({ error: '학교메일을 입력해주세요' });
+      return;
+    }
 
     try {
       const resp = await api.fetch('/graphql', {
         method: 'POST',
         body: JSON.stringify({
           query: `
-            mutation auth($name: String!, $studentId: String!) {
-              authenticate(input: {name: $name, studentId: $studentId}) {
+            mutation sendEmail($name: String!, $email: String!) {
+              sendEmailAuth(input: {name: $name, email: $email}) {
                 state
               }
             }
           `,
-          variables: {
-            name,
-            studentId: studentID,
-          },
+          variables: { name, email },
         }),
       });
 
@@ -41,21 +58,25 @@ class Auth extends React.Component {
 
       if (errors) {
         console.error(errors);
+        this.setState({ error: errors[0].message });
         return;
       }
 
-      if (data.authenticate.state) {
-        history.push('/');
+      if (data.sendEmailAuth.state) {
+        this.setState({ succeed: true });
       } else {
-        this.setState({ authFail: true });
+        this.setState({
+          error: '인증 메일을 보내는 동안 문제가 발생하였습니다',
+        });
       }
     } catch (e) {
       console.error(e);
+      this.setState({ error: e.message });
     }
   };
 
   render() {
-    const { authFail } = this.state;
+    const { error, succeed } = this.state;
 
     return (
       <div className={s.root}>
@@ -68,17 +89,18 @@ class Auth extends React.Component {
             onChange={e => this.setState({ name: e.target.value })}
           />
         </label>
-        <label className={s.label} htmlFor="studentID">
-          학번:
+        <label className={s.label} htmlFor="email">
+          이메일:
           <input
             className={s.input}
-            id="studentID"
-            type="text"
-            onChange={e => this.setState({ studentID: e.target.value })}
+            id="email"
+            type="email"
+            onChange={e => this.setState({ email: e.target.value })}
           />
         </label>
-        <button onClick={this.authenticate}>인증하기</button>
-        {authFail && <div>인증실패</div>}
+        <button onClick={this.sendEmail}>인증메일 보내기</button>
+        {error && <div>에러: {error}</div>}
+        {succeed && <div>확인 이메일을 보냈습니다. 이메일을 학인하세요.</div>}
       </div>
     );
   }
