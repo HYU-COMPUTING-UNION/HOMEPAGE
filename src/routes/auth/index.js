@@ -1,29 +1,19 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import Auth from './Auth';
-import { checkLogin } from '../../api';
+import { getViewer, checkEmailAuthentication } from '../../api';
 
 async function action({ api }) {
-  let viewer;
+  let viewer = null;
 
   try {
-    const status = await checkLogin(
-      api,
-      '{ viewer { id profile { id isAffiliationAuthenticated } } }',
-    );
+    viewer = await getViewer(api);
 
-    if (status.data && status.data.viewer) {
-      viewer = status.data.viewer;
-
-      if (viewer.profile && viewer.isAffiliationAuthenticated) {
-        return { redirect: '/' };
-      }
-    } else {
-      viewer = null;
+    if (viewer && checkEmailAuthentication(viewer)) {
+      return { redirect: '/' };
     }
   } catch (e) {
     console.error(e);
-    viewer = null;
   }
 
   return {

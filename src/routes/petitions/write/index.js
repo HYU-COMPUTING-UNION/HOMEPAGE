@@ -10,7 +10,7 @@
 import React from 'react';
 import Layout from '../../../components/Layout';
 import Write from './Write';
-import { checkLogin } from '../../../api';
+import { getViewer, checkEmailAuthentication } from '../../../api';
 
 const title = 'Write Page';
 
@@ -18,21 +18,14 @@ async function action({ api }) {
   let viewer = null;
 
   try {
-    const { login, data } = await checkLogin(api);
+    viewer = await getViewer(api);
 
-    if (!login) {
+    if (!viewer) {
       return { redirect: '/login' };
     }
-    if (data) {
-      if (data.viewer) {
-        viewer = data.viewer;
 
-        if (!viewer.profile || !viewer.profile.isAffiliationAuthenticated) {
-          return { redirect: '/auth' };
-        }
-      } else {
-        return { redriect: '/' };
-      }
+    if (!checkEmailAuthentication(viewer)) {
+      return { redirect: '/auth' };
     }
   } catch (e) {
     console.error(e);
@@ -40,7 +33,7 @@ async function action({ api }) {
   }
 
   return {
-    chunks: ['admin'],
+    chunks: ['petitions.write'],
     title,
     component: (
       <Layout viewer={viewer}>

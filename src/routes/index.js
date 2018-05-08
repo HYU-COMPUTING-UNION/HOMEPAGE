@@ -53,7 +53,7 @@ const routes = {
         {
           path: '/write',
           load: () =>
-            import(/* webpackChunkName: 'petitions/write' */ './petitions/write'),
+            import(/* webpackChunkName: 'petitions.write' */ './petitions/write'),
         },
         {
           path: '/:id',

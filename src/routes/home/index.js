@@ -10,20 +10,16 @@
 import React from 'react';
 import Home from './Home';
 import Layout from '../../components/Layout';
-import { checkLogin } from '../../api';
+import { getViewer, checkEmailAuthentication } from '../../api';
 
 async function action({ api }) {
   let viewer = null;
 
   try {
-    const status = await checkLogin(api);
+    viewer = await getViewer(api);
 
-    if (status.data && status.data.viewer) {
-      viewer = status.data.viewer;
-
-      if (!viewer.profile || !viewer.profile.isAffiliationAuthenticated) {
-        return { redirect: '/auth' };
-      }
+    if (viewer && !checkEmailAuthentication(viewer)) {
+      return { redirect: '/auth' };
     }
   } catch (e) {
     console.error(e);

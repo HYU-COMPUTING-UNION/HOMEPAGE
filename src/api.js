@@ -91,29 +91,28 @@ function create({ baseUrl, headers = {} }) {
   };
 }
 
-export async function checkLogin(
-  api,
-  query = '{ viewer { id profile { id name isAffiliationAuthenticated } } }',
-) {
-  try {
-    const resp = await api.fetch('/graphql', {
-      method: 'POST',
-      body: JSON.stringify({ query }),
-    });
+export async function getViewer(api) {
+  const query = '{ viewer { id isEmailAuthenticated profile { id name } } }';
+  const resp = await api.fetch('/graphql', {
+    method: 'POST',
+    body: JSON.stringify({ query }),
+  });
 
-    const { data, errors } = await resp.json();
+  const { data, errors } = await resp.json();
 
-    if (errors) {
-      return { login: false };
+  if (errors) {
+    if (errors.find(error => error.code === 401)) {
+      return null;
     }
 
-    return {
-      login: true,
-      data,
-    };
-  } catch (e) {
-    return { login: false };
+    throw new Error(errors[0].message);
   }
+
+  return data.viewer;
+}
+
+export function checkEmailAuthentication(viewer) {
+  return viewer.isEmailAuthenticated;
 }
 
 export default { create };
