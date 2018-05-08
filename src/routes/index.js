@@ -65,7 +65,10 @@ const routes = {
       path: '/promise',
       load: () => import(/* webpackChunkName: 'promise' */ './promise'),
     },
-
+    {
+      path: '/email-auth',
+      load: () => import(/* webpackChunkName: 'email-auth' */ './email-auth'),
+    },
     // Wildcard routes, e.g. { path: '(.*)', ... } (must go last)
     {
       path: '(.*)',
