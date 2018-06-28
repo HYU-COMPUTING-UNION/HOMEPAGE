@@ -1,26 +1,26 @@
 import React from 'react';
 import Layout from '../../components/Layout';
-import Auth from './Auth';
-import { getViewer, checkEmailAuthentication } from '../../api';
+import EmailAuth from './EmailAuth';
+import { getViewer } from '../../api';
 
-async function action({ api }) {
+async function action({ api, query }) {
   let viewer = null;
 
   try {
     viewer = await getViewer(api);
-
-    if (viewer && checkEmailAuthentication(viewer)) {
-      return { redirect: '/' };
-    }
   } catch (e) {
     console.error(e);
   }
 
+  if (!query.token) {
+    return { redirect: '/not-found' };
+  }
+
   return {
-    chunks: ['auth'],
+    chunks: ['email-auth'],
     component: (
       <Layout viewer={viewer}>
-        <Auth />
+        <EmailAuth token={query.token} />
       </Layout>
     ),
   };

@@ -10,7 +10,7 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import Petitions from './Petitions';
-import { checkLogin } from '../../api';
+import { getViewer, checkEmailAuthentication } from '../../api';
 
 const title = '청원제목';
 
@@ -18,17 +18,17 @@ async function action({ api, params }) {
   let viewer = null;
 
   try {
-    const status = await checkLogin(api);
+    viewer = await getViewer(api);
 
-    if (status.data && status.data.viewer) {
-      viewer = status.data.viewer;
+    if (viewer && !checkEmailAuthentication(viewer)) {
+      return { redirect: '/auth' };
     }
   } catch (e) {
     console.error(e);
   }
 
   return {
-    chunks: ['contact'],
+    chunks: ['petitions'],
     title,
     component: (
       <Layout viewer={viewer}>

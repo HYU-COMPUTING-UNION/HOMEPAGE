@@ -10,22 +10,28 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import Login from './Login';
-import { checkLogin } from '../../api';
+import { getViewer } from '../../api';
 
 const title = '로그인';
 
 async function action({ api }) {
-  const state = await checkLogin(api);
+  let viewer = null;
 
-  if (state.login) {
-    return { redirect: '/' };
+  try {
+    viewer = await getViewer(api);
+
+    if (viewer) {
+      return { redirect: '/' };
+    }
+  } catch (e) {
+    console.error(e);
   }
 
   return {
     chunks: ['login'],
     title,
     component: (
-      <Layout>
+      <Layout viewer={viewer}>
         <Login title={title} />
       </Layout>
     ),

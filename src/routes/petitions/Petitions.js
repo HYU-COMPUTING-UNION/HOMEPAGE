@@ -14,6 +14,8 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Progress from '../../components/Progress';
 import s from './Petitions.css';
 
+import { checkEmailAuthentication } from '../../api';
+
 class Petitions extends React.Component {
   static contextTypes = {
     api: PropTypes.object.isRequired,
@@ -84,8 +86,8 @@ class Petitions extends React.Component {
       return;
     }
 
-    if (!viewer.profile || !viewer.profile.isAffiliationAuthenticated) {
-      console.info('affiliation authentication required');
+    if (!checkEmailAuthentication(viewer)) {
+      console.info('email authentication required');
       return;
     }
 
