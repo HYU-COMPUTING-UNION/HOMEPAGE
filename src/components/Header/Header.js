@@ -37,17 +37,25 @@ class Header extends React.Component {
           <div className={s.banner}>
             {/* <h1 className={s.bannerTitle}>React</h1>
             <p className={s.bannerDesc}>Complex web apps made easy</p> */}
-            <Link className={s.link} to="/promise">
-              공약
-            </Link>
-            <p>·</p>
-            <Link className={s.link} to="/">
-              소융청원
-            </Link>
-            <p>·</p>
-            <Link className={s.link} to="/">
-              대여사업
-            </Link>
+            <Link className={s.link} to="">
+            소융청원
+          </Link>
+          <p>·</p>
+          <Link className={s.link} to="/promise">
+            공약
+          </Link>
+          <p>·</p>
+          <Link className={s.link} to="/money">
+            예·결산안
+          </Link>
+          <p>·</p>
+          <Link className={s.link} to="/event">
+            행사
+          </Link>
+          <p>·</p>
+          <Link className={s.link} to="/rent">
+            대여현황
+          </Link>
           </div>
         </div>
       </div>

@@ -69,9 +69,14 @@ class Navigation extends React.Component {
     return (
       <div className={s.root} role="navigation">
         {viewer ? (
-          <button className={cx(s.link, s.button)} onClick={this.handleLogout}>
-            Log out
-          </button>
+          <div>
+            <Link className={s.link} to="/profile">
+              Profile
+            </Link>
+            <button className={cx(s.link, s.button)} onClick={this.handleLogout}>
+              Log out
+            </button>
+          </div>
         ) : (
           <Link className={s.link} to="/login">
             Log in
