@@ -73,7 +73,10 @@ class Navigation extends React.Component {
             <Link className={s.link} to="/profile">
               Profile
             </Link>
-            <button className={cx(s.link, s.button)} onClick={this.handleLogout}>
+            <button
+              className={cx(s.link, s.button)}
+              onClick={this.handleLogout}
+            >
               Log out
             </button>
           </div>
