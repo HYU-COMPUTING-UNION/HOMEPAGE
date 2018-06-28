@@ -6,7 +6,12 @@
     "node": ">=6.13.1",
     "npm": ">=3.10.10"
   },
-  "browserslist": [">1%", "last 4 versions", "Firefox ESR", "not ie < 9"],
+  "browserslist": [
+    ">1%",
+    "last 4 versions",
+    "Firefox ESR",
+    "not ie < 9"
+  ],
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.44",
     "bluebird": "^3.5.1",
@@ -34,6 +39,7 @@
     "react-dom": "^16.3.1",
     "react-relay": "^1.5.0",
     "relay-runtime": "^1.5.0",
+    "semantic-ui-react": "^0.81.3",
     "serialize-javascript": "^1.4.0",
     "source-map-support": "^0.5.4",
     "universal-router": "^6.0.0",
@@ -121,9 +127,18 @@
     "webpack-node-externals": "^1.7.2"
   },
   "lint-staged": {
-    "*.{js,jsx}": ["eslint --no-ignore --fix", "git add --force"],
-    "*.{json,md,graphql}": ["prettier --write", "git add --force"],
-    "*.{css,less,styl,scss,sass,sss}": ["stylelint --fix", "git add --force"]
+    "*.{js,jsx}": [
+      "eslint --no-ignore --fix",
+      "git add --force"
+    ],
+    "*.{json,md,graphql}": [
+      "prettier --write",
+      "git add --force"
+    ],
+    "*.{css,less,styl,scss,sass,sss}": [
+      "stylelint --fix",
+      "git add --force"
+    ]
   },
   "scripts": {
     "relay": "relay-compiler --src ./src --schema ./data/schema.graphql",

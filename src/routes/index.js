@@ -53,11 +53,25 @@ const routes = {
         {
           path: '/write',
           load: () =>
-            import(/* webpackChunkName: 'petitions.write' */ './petitions/write'),
+            import(/* webpackChunkName: 'petitions/write' */ './petitions/write'),
         },
         {
           path: '/:id',
           load: () => import(/* webpackChunkName: 'petitions' */ './petitions'),
+        },
+      ],
+    },
+    {
+      path: '/rent',
+      children: [
+        {
+          path: '/write',
+          load: () =>
+            import(/* webpackChunkName: 'rent/write' */ './rent/write'),
+        },
+        {
+          path: '',
+          load: () => import(/* webpackChunkName: 'rent' */ './rent'),
         },
       ],
     },
@@ -69,6 +83,29 @@ const routes = {
       path: '/email-auth',
       load: () => import(/* webpackChunkName: 'email-auth' */ './email-auth'),
     },
+    {
+      path: '/money',
+      load: () => import(/* webpackChunkName: 'money' */ './money'),
+    },
+    {
+      path: '/event',
+      children: [
+        {
+          path: '/write',
+          load: () =>
+            import(/* webpackChunkName: 'event/write' */ './event/write'),
+        },
+        {
+          path: '',
+          load: () => import(/* webpackChunkName: 'event' */ './event'),
+        },
+        {
+          path: '/:id',
+          load: () => import(/* webpackChunkName: 'event/detail' */ './event/detail'),
+        },
+      ],
+    },
+
     // Wildcard routes, e.g. { path: '(.*)', ... } (must go last)
     {
       path: '(.*)',

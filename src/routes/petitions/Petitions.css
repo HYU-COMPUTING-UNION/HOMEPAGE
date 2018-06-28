@@ -123,6 +123,10 @@
      -webkit-transition: .1s color ease;
      transition: .1s color ease;
    }
+
+   ol > li > a {
+     text-decoration: none;
+   }
  
    ol > li:hover {
      color: rgba(0,0,0,.8);
@@ -199,6 +203,7 @@
          color: rgba(0,0,0,.4);
          -webkit-transition: .1s color ease;
          transition: .1s color ease;
+         text-decoration: none !important;
      }
      a:after {
          content: '';

@@ -20,6 +20,10 @@
   max-width: var(--max-content-width);
 }
 
+.marginTop {
+  margin-top: 1em !important;
+}
+
 /*
 .newsItem {
   margin: 0 0 2rem;

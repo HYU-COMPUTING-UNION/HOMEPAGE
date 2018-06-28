@@ -74,7 +74,7 @@ class Home extends React.Component {
       <div className={s.root}>
         <div className={s.container}>
           <div className={s.p_box}>
-            <h2>
+            <h2 className={s.marginTop}>
               여러분의 불편한 점들, 개선할 점들, 해줬으면 하는 점들 알려주세요.
             </h2>
             <p>
