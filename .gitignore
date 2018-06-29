@@ -35,6 +35,6 @@ __graphql__/
 .DS_Store
 
 # vscode
-.vscode
+.vscode/
 secret.key
 package-lock.json
