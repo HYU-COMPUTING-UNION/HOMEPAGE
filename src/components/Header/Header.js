@@ -14,6 +14,7 @@ import s from './Header.css';
 import Link from '../Link';
 import Navigation from '../Navigation';
 import logoUrl from './logo.jpeg';
+import { Icon, Segment } from 'semantic-ui-react';
 
 class Header extends React.Component {
   static propTypes = {
@@ -24,8 +25,18 @@ class Header extends React.Component {
     viewer: null,
   };
 
+  state = {
+    visible: false,
+  };
+
+  handleClick(e) {
+    e.preventDefault();
+    this.setState({ visible : !this.state.visible});
+  }
+
   render() {
     const { viewer } = this.props;
+    const { visible } = this.state;
 
     return (
       <div className={s.root}>
@@ -37,6 +48,8 @@ class Header extends React.Component {
           <div className={s.banner}>
             {/* <h1 className={s.bannerTitle}>React</h1>
             <p className={s.bannerDesc}>Complex web apps made easy</p> */}
+            {false ? (
+              <div>
             <Link className={s.link} to="/petitions/list">
               소융청원
             </Link>
@@ -56,7 +69,42 @@ class Header extends React.Component {
             <Link className={s.link} to="/rent">
               대여현황
             </Link>
+            </div>
+            ) : (
+              <div>
+                <Icon onClick={e => this.setState({ visible: !this.state.visible })} name='bars'/>
+              </div>
+            )}
           </div>
+          {visible &&
+            <div>
+              <Segment vertical textAlign='center'>
+                <Link className={s.link} to="/petitions/list">
+                  소융청원
+                </Link>
+              </Segment>
+              <Segment vertical textAlign='center'>
+                <Link className={s.link} to="/promise">
+                  공약
+                </Link>
+              </Segment>
+              <Segment vertical textAlign='center'>
+                <Link className={s.link} to="/money">
+                  예·결산안
+                </Link>
+              </Segment>
+              <Segment vertical textAlign='center'>
+                <Link className={s.link} to="/event">
+                  행사
+                </Link>
+              </Segment>
+              <Segment vertical textAlign='center'>
+                <Link className={s.link} to="/rent">
+                  대여현황
+                </Link>
+              </Segment>
+            </div>
+          }
         </div>
       </div>
     );
