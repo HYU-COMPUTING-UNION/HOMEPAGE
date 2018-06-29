@@ -37,7 +37,7 @@ class Header extends React.Component {
           <div className={s.banner}>
             {/* <h1 className={s.bannerTitle}>React</h1>
             <p className={s.bannerDesc}>Complex web apps made easy</p> */}
-            <Link className={s.link} to="">
+            <Link className={s.link} to="/petitions/list">
               소융청원
             </Link>
             <p>·</p>
