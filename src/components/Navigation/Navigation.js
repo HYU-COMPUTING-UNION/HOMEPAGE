@@ -70,7 +70,7 @@ class Navigation extends React.Component {
       <div className={s.root} role="navigation">
         {viewer ? (
           <div>
-            <Link className={s.link} to="/profile">
+            <Link className={s.link} to="/auth">
               Profile
             </Link>
             <button
