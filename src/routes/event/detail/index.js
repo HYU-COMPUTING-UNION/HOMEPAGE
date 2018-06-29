@@ -16,7 +16,7 @@ function action() {
     chunks: ['event/detail'],
     component: (
       <Layout>
-        <Detail/>
+        <Detail />
       </Layout>
     ),
   };

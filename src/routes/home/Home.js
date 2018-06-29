@@ -12,6 +12,10 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Home.css';
 import Link from '../../components/Link';
+import { Feed, Icon, Input } from 'semantic-ui-react';
+import laura from './laura.jpg';
+import elliot from './elliot.jpg';
+
 
 class Home extends React.Component {
   static contextTypes = {
@@ -22,9 +26,14 @@ class Home extends React.Component {
   state = {
     petitions: {},
     answeredPetitions: {},
+    placeholder: "한양소융 만세~!~!",
   };
 
   async componentDidMount() {
+    setInterval(
+      () => this.tick(),
+      3000
+    );
     const { api } = this.context;
     try {
       const resp = await api.fetch('/graphql', {
@@ -67,64 +76,32 @@ class Home extends React.Component {
     }
   }
 
+  tick() {
+    const text = ["안녕하세요! 19학번 신입생입니다~", "반가워요~ 저는 16학번 재학생이에요","여기는 뭐하는 곳인가요?"];
+    this.setState({
+      placeholder: text[Math.floor((Math.random() * 3))]
+    })
+  }
+
   render() {
-    const { petitions, answeredPetitions } = this.state;
+    const { placeholder } = this.state;
 
     return (
       <div className={s.root}>
         <div className={s.container}>
           <div className={s.p_box}>
-            <h2 className={s.marginTop}>
-              여러분의 불편한 점들, 개선할 점들, 해줬으면 하는 점들 알려주세요.
-            </h2>
+            <h1 className={s.marginTop}>
+              소융 담벼락
+            </h1>
             <p>
-              여러분들이 작성한 소중한 의견들 모두 검토 후 답변을
-              남겨드리겠습니다.
+              하루 한 사람당 하나의 댓글만 작성 가능합니다.
             </p>
-            <Link to="/petitions/write">
-              <button className={s.button}>청원 작성하기</button>
-            </Link>
+            <Input icon={<Icon name='write' inverted circular link />} placeholder={placeholder} fluid/>
           </div>
-          <h1>청원 목록</h1>
-          {petitions.edges &&
-            petitions.edges.map(edge => (
-              <Link key={edge.node.id} to={`/petitions/${edge.node.id}`}>
-                <div className={s.ask}>
-                  <div>
-                    <p className={s.status}>
-                      {edge.node.isInProgress ? '진행' : '대기'}
-                    </p>
-                    <span className={s.spacer}> | </span>
-                    <p className={s.branch}>
-                      {edge.node.categories.edges.length
-                        ? edge.node.categories.edges[0].node.name
-                        : '없음'}
-                    </p>
-                    <span className={s.spacer}> | </span>
-                    <p className={s.date}>{edge.node.issuedAt}</p>
-                  </div>
-                  <h2 className={s.title}>{edge.node.title}</h2>
-                </div>
-              </Link>
-            ))}
-          <h1>답변된 청원</h1>
-          {answeredPetitions.edges &&
-            answeredPetitions.edges.map(edge => (
-              <Link key={edge.node.id} to={`/petitions/${edge.node.id}`}>
-                <div key={edge.node.id} className={s.ask}>
-                  <p className={s.status}>완료</p>
-                  <span className={s.spacer}> | </span>
-                  <p className={s.branch}>
-                    {edge.node.categories.edges.length
-                      ? edge.node.categories.edges[0].node.name
-                      : '없음'}
-                  </p>
-                  <span className={s.spacer}> | </span>
-                  <p className={s.date}>{edge.node.issuedAt}</p>
-                  <h2 className={s.title}>{edge.node.title}</h2>
-                </div>
-              </Link>
-            ))}
+          <Feed>
+            <Feed.Event image={laura} date='오늘' summary='영희 님이 부릅니다.' extraText='아니아니ㅣㅣ' />
+            <Feed.Event image={elliot} date='오늘' summary='철수 님이 외쳤습니다.' extraText='세상에 마상에' />
+          </Feed>
         </div>
       </div>
     );

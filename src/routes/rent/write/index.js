@@ -22,7 +22,7 @@ function action() {
     chunks: ['rent/write'],
     component: (
       <Layout>
-        <Write/>
+        <Write />
       </Layout>
     ),
   };

@@ -11,15 +11,12 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import Money from './Money';
 
-const title = '예산 결산안';
-
 function action() {
   return {
     chunks: ['money'],
-    title,
     component: (
       <Layout>
-        <Money title={title} />
+        <Money />
       </Layout>
     ),
   };

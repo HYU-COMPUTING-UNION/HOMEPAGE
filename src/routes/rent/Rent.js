@@ -24,59 +24,59 @@ class Rent extends React.Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-        <Segment basic>
-          <h1 className={s.inline}>배터리 대여현황</h1>
-          <p className={s.left}>관리</p>
-          <Grid textAlign='center' columns={5}>
-            <Grid.Row>
-              <Grid.Column>
-                <p className={s.number}>1</p>
-                <Image className={s.margin} circular src={helen} />
-              </Grid.Column>
-              <Grid.Column>
-                <p className={s.number}>2</p>
-                <Image className={s.margin} circular src={jenny} />
-              </Grid.Column>
-              <Grid.Column>
-                <p className={s.number}>3</p>
-                <Image className={s.margin} circular src={joe} />
-              </Grid.Column>
-              <Grid.Column>
-                <p className={s.number}>4</p>
-                <Link to='/rent/write'>
-                  <Icon name='circle thin' size='huge'/>
-                </Link>
-              </Grid.Column>
-              <Grid.Column>
-                <p className={s.number}>5</p>
-                <Image className={s.margin} circular src={elliot} />
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column>
-                <p className={s.number}>6</p>
-                <Image className={s.margin} circular src={justen} />
-              </Grid.Column>
-              <Grid.Column>
-                <p className={s.number}>7</p>
-                <Image className={s.margin} circular src={joe} />
-              </Grid.Column>
-              <Grid.Column>
-                <p className={s.number}>8</p>
-                <Icon name='delete' size='huge'/>
-              </Grid.Column>
-              <Grid.Column>
-                <p className={s.number}>9</p>
-                <Image className={s.margin} circular src={jenny} />
-              </Grid.Column>
-              <Grid.Column>
-                <p className={s.number}>10</p>
-                <Image className={s.margin} circular src={helen} />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-          <h1>우산 대여현황</h1>
-        </Segment>
+          <Segment basic>
+            <h1 className={s.inline}>배터리 대여현황</h1>
+            <p className={s.left}>관리</p>
+            <Grid textAlign="center" columns={5}>
+              <Grid.Row>
+                <Grid.Column>
+                  <p className={s.number}>1</p>
+                  <Image className={s.margin} circular src={helen} />
+                </Grid.Column>
+                <Grid.Column>
+                  <p className={s.number}>2</p>
+                  <Image className={s.margin} circular src={jenny} />
+                </Grid.Column>
+                <Grid.Column>
+                  <p className={s.number}>3</p>
+                  <Image className={s.margin} circular src={joe} />
+                </Grid.Column>
+                <Grid.Column>
+                  <p className={s.number}>4</p>
+                  <Link to="/rent/write">
+                    <Icon name="circle thin" size="huge" />
+                  </Link>
+                </Grid.Column>
+                <Grid.Column>
+                  <p className={s.number}>5</p>
+                  <Image className={s.margin} circular src={elliot} />
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <p className={s.number}>6</p>
+                  <Image className={s.margin} circular src={justen} />
+                </Grid.Column>
+                <Grid.Column>
+                  <p className={s.number}>7</p>
+                  <Image className={s.margin} circular src={joe} />
+                </Grid.Column>
+                <Grid.Column>
+                  <p className={s.number}>8</p>
+                  <Icon name="delete" size="huge" />
+                </Grid.Column>
+                <Grid.Column>
+                  <p className={s.number}>9</p>
+                  <Image className={s.margin} circular src={jenny} />
+                </Grid.Column>
+                <Grid.Column>
+                  <p className={s.number}>10</p>
+                  <Image className={s.margin} circular src={helen} />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+            <h1>우산 대여현황</h1>
+          </Segment>
         </div>
       </div>
     );

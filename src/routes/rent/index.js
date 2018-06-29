@@ -16,9 +16,9 @@ function action() {
     chunks: ['rent'],
     component: (
       <Layout>
-        <Rent/>
+        <Rent />
       </Layout>
-    )
+    ),
   };
 }
 

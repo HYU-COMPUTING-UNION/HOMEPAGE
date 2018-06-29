@@ -56,6 +56,11 @@ const routes = {
             import(/* webpackChunkName: 'petitions/write' */ './petitions/write'),
         },
         {
+          path: '/list',
+          load: () =>
+            import(/* webpackChunkName: 'petitions/list' */ './petitions/list'),
+        },
+        {
           path: '/:id',
           load: () => import(/* webpackChunkName: 'petitions' */ './petitions'),
         },
@@ -101,7 +106,8 @@ const routes = {
         },
         {
           path: '/:id',
-          load: () => import(/* webpackChunkName: 'event/detail' */ './event/detail'),
+          load: () =>
+            import(/* webpackChunkName: 'event/detail' */ './event/detail'),
         },
       ],
     },

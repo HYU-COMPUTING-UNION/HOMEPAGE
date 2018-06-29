@@ -7,7 +7,7 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-@import '../../components/variables.css';
+@import '../../../components/variables.css';
 
 .root {
   padding-left: 20px;
@@ -102,7 +102,7 @@ a {
 }
 
 .p_box {
-  /* border: #d9d9d9 solid 1px; */
+  border: #d9d9d9 solid 1px;
   padding-bottom: 20px;
   text-align: center;
 }

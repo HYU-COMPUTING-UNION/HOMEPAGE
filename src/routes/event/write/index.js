@@ -16,7 +16,7 @@ function action() {
     chunks: ['event/write'],
     component: (
       <Layout>
-        <Write/>
+        <Write />
       </Layout>
     ),
   };
