@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Home.css';
 import Link from '../../components/Link';
-import { Feed, Icon, Input } from 'semantic-ui-react';
+import { Feed, Icon, Input, Comment } from 'semantic-ui-react';
 import laura from './laura.jpg';
 import elliot from './elliot.jpg';
 
@@ -98,10 +98,34 @@ class Home extends React.Component {
             </p>
             <Input icon={<Icon name='write' inverted circular link />} placeholder={placeholder} fluid/>
           </div>
+          <Comment.Group>
+            <Comment>
+              <Comment.Avatar src={laura} />
+              <Comment.Content>
+                <Comment.Author as='a'>영희</Comment.Author>
+                <Comment.Metadata>
+                  <div>Today at 5:45PM</div>
+                </Comment.Metadata>
+                <Comment.Text>안녕하세요</Comment.Text>
+              </Comment.Content>
+            </Comment>
+            <Comment>
+              <Comment.Avatar src={elliot} />
+              <Comment.Content>
+                <Comment.Author as='a'>철수</Comment.Author>
+                <Comment.Metadata>
+                  <div>Today at 5:42PM</div>
+                </Comment.Metadata>
+                <Comment.Text>누구세요</Comment.Text>
+              </Comment.Content>
+            </Comment>
+          </Comment.Group>
+          {/*
           <Feed>
             <Feed.Event image={laura} date='오늘' summary='영희 님이 부릅니다.' extraText='아니아니ㅣㅣ' />
             <Feed.Event image={elliot} date='오늘' summary='철수 님이 외쳤습니다.' extraText='세상에 마상에' />
           </Feed>
+          */}
         </div>
       </div>
     );

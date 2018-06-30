@@ -14,7 +14,7 @@ import s from './Header.css';
 import Link from '../Link';
 import Navigation from '../Navigation';
 import logoUrl from './logo.jpeg';
-import { Icon, Segment } from 'semantic-ui-react';
+import { Icon, Segment, Responsive } from 'semantic-ui-react';
 
 class Header extends React.Component {
   static propTypes = {
@@ -24,13 +24,15 @@ class Header extends React.Component {
   static defaultProps = {
     viewer: null,
   };
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false,
+    };
+    this.toggleVisbility = this.toggleVisbility.bind(this);
+  }
 
-  state = {
-    visible: false,
-  };
-
-  handleClick(e) {
-    e.preventDefault();
+  toggleVisbility(e) {
     this.setState({ visible : !this.state.visible});
   }
 
@@ -48,7 +50,9 @@ class Header extends React.Component {
           <div className={s.banner}>
             {/* <h1 className={s.bannerTitle}>React</h1>
             <p className={s.bannerDesc}>Complex web apps made easy</p> */}
-            {false ? (
+            <Responsive
+            minWidth={Responsive.onlyTablet.minWidth}
+            as = {()=>
               <div>
             <Link className={s.link} to="/petitions/list">
               소융청원
@@ -70,36 +74,39 @@ class Header extends React.Component {
               대여현황
             </Link>
             </div>
-            ) : (
-              <div>
-                <Icon onClick={e => this.setState({ visible: !this.state.visible })} name='bars'/>
-              </div>
-            )}
+            }
+            />
+            <Responsive
+              {...Responsive.onlyMobile}
+              as={()=>
+                <Icon onClick={this.toggleVisbility} name='bars'/>
+              }
+            />
           </div>
           {visible &&
             <div>
               <Segment vertical textAlign='center'>
-                <Link className={s.link} to="/petitions/list">
+                <Link className={s.link} to="/petitions/list" onClick={this.toggleVisbility}>
                   소융청원
                 </Link>
               </Segment>
               <Segment vertical textAlign='center'>
-                <Link className={s.link} to="/promise">
+                <Link className={s.link} to="/promise" onClick={this.toggleVisbility}>
                   공약
                 </Link>
               </Segment>
               <Segment vertical textAlign='center'>
-                <Link className={s.link} to="/money">
+                <Link className={s.link} to="/money" onClick={this.toggleVisbility}>
                   예·결산안
                 </Link>
               </Segment>
               <Segment vertical textAlign='center'>
-                <Link className={s.link} to="/event">
+                <Link className={s.link} to="/event" onClick={this.toggleVisbility}>
                   행사
                 </Link>
               </Segment>
               <Segment vertical textAlign='center'>
-                <Link className={s.link} to="/rent">
+                <Link className={s.link} to="/rent" onClick={this.toggleVisbility}>
                   대여현황
                 </Link>
               </Segment>
