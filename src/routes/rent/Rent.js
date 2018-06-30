@@ -27,7 +27,7 @@ class Rent extends React.Component {
           <Segment basic>
             <h1 className={s.inline}>배터리 대여현황</h1>
             <p className={s.left}>관리</p>
-            <Grid textAlign="center" columns={5}>
+            <Grid textAlign="center" columns={5} stackable>
               <Grid.Row>
                 <Grid.Column>
                   <p className={s.number}>1</p>

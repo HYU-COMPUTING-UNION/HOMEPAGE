@@ -19,3 +19,52 @@
   padding: 0 0 40px;
   max-width: var(--max-content-width);
 }
+
+.headBanner {
+  /* background: url(./background.mp4); */
+}
+
+.videoWrapper {
+  overflow: hidden;
+}
+
+.cover {
+  height: 240px;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  position: absolute;
+}
+
+.videoWrapper > video {
+  width: 100%;
+  object-fit: cover;
+}
+
+.videoWrapper > h1 {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  color: white;
+  margin: auto;
+  padding: 100px;
+}
+
+.tab {
+  width: 100%;
+  text-align: center;
+}
+
+.tab > h2 {
+  display: inline-block;
+  margin-left: 2em;
+  margin-right: 2em;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.tab > h2:hover {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.tab > .active {
+  color: rgba(0, 0, 0, 0.8);
+}

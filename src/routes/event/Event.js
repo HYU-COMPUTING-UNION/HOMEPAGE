@@ -22,11 +22,17 @@ class Event extends React.Component {
         <div className={s.container}>
           <Grid stackable>
             <Grid.Column width={4}>
-              <Segment basic>
+              <Segment basic className={s.header}>
                 <Header as="h1">행사 목록</Header>
-                <Header as="h2">소융대</Header>
-                <Header as="h2">대외활동</Header>
-                <Header as="h2">공모전</Header>
+                <Header as="h2" className={s.active}>
+                  <a href='#'>소융대</a>
+                </Header>
+                <Header as="h2">
+                  <a href='#'>대외활동</a>
+                </Header>
+                <Header as="h2">
+                  <a href='#'>공모전</a>
+                </Header>
               </Segment>
             </Grid.Column>
             <Grid.Column width={12}>

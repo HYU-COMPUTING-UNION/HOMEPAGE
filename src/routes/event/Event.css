@@ -33,7 +33,23 @@
   /* width: 30% !important; */
 }
 
-
 .boxMargin {
   margin-bottom: 5em !important;
+}
+
+.header > h2 {
+  margin: auto 1em auto auto;
+}
+
+.header > h2 > a:hover {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.header > .active > a {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.header > h2 > a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.3);
 }
