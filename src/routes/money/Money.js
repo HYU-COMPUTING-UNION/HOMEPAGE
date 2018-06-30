@@ -24,7 +24,7 @@ class Money extends React.Component {
             <h1><a href='#'>결산안</a></h1>
             <h1><a href='#'>영수증</a></h1>
           </div>
-          <Table textAlign='center' celled>
+          <Table textAlign='center' celled stackable>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>학기</Table.HeaderCell>

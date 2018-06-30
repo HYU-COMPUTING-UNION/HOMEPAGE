@@ -1,0 +1,75 @@
+/**
+ * React Starter Kit (https://www.reactstarterkit.com/)
+ *
+ * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
+@import '../variables.css';
+
+.box {
+  -webkit-box-shadow: 4px 6px 9px 0 rgba(58, 62, 49, 0.05), 8px 22px 60px 0 rgba(57, 58, 48, 0.07) !important;
+  box-shadow: 4px 6px 9px 0 rgba(58, 62, 49, 0.05), 8px 22px 60px 0 rgba(57, 58, 48, 0.07) !important;
+  border-radius: 4px !important;
+  padding: 0 !important;
+  /* margin: 0.9em !important; */
+  /* width: 30% !important; */
+}
+
+.image {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  width: 100%;
+  background: url(./image.png);
+  height: 11.5em;
+}
+
+.info {
+  padding: 12px !important;
+  padding-bottom: 6px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.infoBox {
+  padding: 10px !important;
+}
+
+.label {
+  /* padding: 10px; */
+  font-size: 0.2em;
+}
+
+.value {
+  margin: 0;
+  display: inline-block;
+  font-size: 1.2em;
+}
+
+.mark {
+  display: inline-block;
+  font-size: 0.3em;
+}
+
+.imageContainer {
+  position: relative;
+  height: 100%;
+}
+
+.text {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  color: white;
+}
+
+.imageCover {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-size: cover;
+  background: linear-gradient(to bottom right, white, black);
+  height: 11.5em;
+  opacity: 0.8;
+}
