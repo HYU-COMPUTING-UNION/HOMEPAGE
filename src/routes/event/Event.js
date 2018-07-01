@@ -41,7 +41,7 @@ class Event extends React.Component {
                 <Grid.Row columns={1} only='mobile'>
                   <Grid.Column className={s.boxMargin}>
                     <Link className={s.link} to='/event/detail'>
-                      <EventCard title='2018 hepc' period='1' participants='123' budget='12.5'/>
+                      <EventCard title='1학기 기말 야식사업' period='1' participants='123' budget='12.5'/>
                     </Link>
                   </Grid.Column>
                   <Grid.Column className={s.boxMargin}>
@@ -59,7 +59,7 @@ class Event extends React.Component {
                 <Grid.Row columns={3} only='computer'>
                   <Grid.Column className={s.boxMargin}>
                     <Link className={s.link} to='/event/detail'>
-                      <EventCard title='2018 hepc' period='1' participants='123' budget='12.5'/>
+                      <EventCard title='1학기 기말 야식사업' period='1' participants='123' budget='12.5'/>
                     </Link>
                   </Grid.Column>
                   <Grid.Column className={s.boxMargin}>
