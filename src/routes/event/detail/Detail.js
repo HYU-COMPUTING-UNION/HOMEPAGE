@@ -39,7 +39,7 @@ class Detail extends React.Component {
         <div className={s.headBanner}>
           <div className={s.videoWrapper}>
             <div className={s.cover}/>
-            <Header as='h1' inverted>2018 소융 학술제</Header>
+            <Header as='h1' inverted>1학기 기말 야식사업</Header>
             <video height="240" width="100%" src={background} autoPlay loop muted/>
           </div>
         </div>
