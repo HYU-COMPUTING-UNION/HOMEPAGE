@@ -13,6 +13,8 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Detail.css';
 import background from './background.mp4';
 import Page from '../../../components/Page';
+import Result from '../../../components/Result';
+import Timeline from '../../../components/Timeline';
 import privacy from './privacy.md';
 import { Grid, Image, Header, Rating, Responsive } from 'semantic-ui-react';
 import a from './1.jpg';
@@ -24,6 +26,12 @@ class Detail extends React.Component {
     super(props);
     this.state = {
       tab: 'Build',
+      timelineData: [
+        {date: '06.09', content: '기획 시작'},
+        {date: '06.11', content: '홍보 시작'},
+        {date: '06.18', content: '행사 당일'},
+        {date: '06.20', content: '후기 작성'},
+      ],
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -77,50 +85,10 @@ class Detail extends React.Component {
               </Grid>
             }
             { tab === 'Compile' &&
-              <ul>
-                <div className={s.line}/>
-                <li className={s.item}>
-                  <div className={s.date}>06.09</div>
-                  <div className={s.content}>기획 시작</div>
-                </li>
-                <li className={s.item}>
-                  <div className={s.date}>06.11</div>
-                  <div className={s.content}>홍보 시작</div>
-                </li>
-                <li className={s.item}>
-                  <div className={s.date}>06.18</div>
-                  <div className={s.content}>행사 당일</div>
-                </li>
-                <li className={s.item}>
-                  <div className={s.date}>06.20</div>
-                  <div className={s.content}>후기 작성</div>
-                </li>
-              </ul>
+              <Timeline timelineData={this.state.timelineData}/>
             }
             { tab === 'Debug' &&
-              <Grid className={s.info} textAlign='center' stackable padded>
-                <Grid.Row columns={3}>
-                  <Grid.Column className={s.infoBox}>
-                    <p className={s.label}>참여인원</p>
-                    <h4 className={s.value}>49</h4>
-                    <p className={s.mark}>명</p>
-                    <p className={s.subInfo}>*근사 추정치</p>
-                  </Grid.Column>
-                  <Grid.Column className={s.infoBox}>
-                    <p className={s.label}>만족도</p>
-                    <Rating className={s.rating} icon='star' defaultRating={3} maxRating={5} size='massive' clearable/>
-                    {/*<h4 className={s.value}>3.4</h4>
-                    <p className={s.mark}>점</p>*/}
-                    <p className={s.subInfo}>*현재 평균 4.2점</p>
-                  </Grid.Column>
-                  <Grid.Column className={s.infoBox}>
-                    <p className={s.label}>결산</p>
-                    <h4 className={s.value}>13.4</h4>
-                    <p className={s.mark}>%</p>
-                    <p className={s.subInfo}>*학생회비 예산</p>
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
+              <Result satisfaction='4.2' participants='49' budget='13.4'/>
             }
           </div>
         </div>
