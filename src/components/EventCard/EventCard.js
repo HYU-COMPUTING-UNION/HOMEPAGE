@@ -16,13 +16,10 @@ import { Segment, Image, Grid } from 'semantic-ui-react';
 class EventCard extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    period: PropTypes.string.isRequired,
-    participants: PropTypes.string.isRequired,
-    budget: PropTypes.string.isRequired,
   };
 
   render() {
-    const { title, period, participants, budget } = this.props;
+    const { title, subData } = this.props;
     return (
       <Segment basic className={s.box}>
         <div className={s.imageContainer}>
@@ -36,20 +33,17 @@ class EventCard extends React.Component {
         </div>
         <Grid className={s.info}>
           <Grid.Row columns={3}>
-            <Grid.Column className={s.infoBox}>
-              <p className={s.label}>행사 기간</p>
-              <h4 className={s.value}>{period}</h4>
-            </Grid.Column>
-            <Grid.Column className={s.infoBox}>
-              <p className={s.label}>참여자</p>
-              <h4 className={s.value}>{participants}</h4>
-              <p className={s.mark}>명</p>
-            </Grid.Column>
-            <Grid.Column className={s.infoBox}>
-              <p className={s.label}>예산 비율</p>
-              <h4 className={s.value}>{budget}</h4>
-              <p className={s.mark}>%</p>
-            </Grid.Column>
+            {subData.map((data, i)=>
+              {
+                return(
+                  <Grid.Column className={s.infoBox} key={i}>
+                    <p className={s.label}>{data.subtitle}</p>
+                    <h4 className={s.value}>{data.content}</h4>
+                    <p className={s.mark}>{data.mark}</p>
+                  </Grid.Column>
+                );
+              }
+            )}
           </Grid.Row>
         </Grid>
       </Segment>

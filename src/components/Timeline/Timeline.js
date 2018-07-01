@@ -20,7 +20,7 @@ class Timeline extends React.Component {
         {timelineData.map((data, i)=>
           {
             return (
-              <li className={s.item}>
+              <li className={s.item} key={i}>
                 <div className={s.date}>{data.date}</div>
                 <div className={s.content}>{data.content}</div>
               </li>
