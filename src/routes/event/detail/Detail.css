@@ -41,17 +41,25 @@
 }
 
 .videoWrapper > h1 {
-  position: absolute;
+  position: absolute !important;
   width: 100%;
   text-align: center;
   color: white;
   margin: auto;
-  padding: 100px;
+  padding: 60px 0 !important;
 }
 
+.mobileTab,
 .tab {
   width: 100%;
   text-align: center;
+}
+
+.mobileTab > h2 {
+  display: inline-block;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  color: rgba(0, 0, 0, 0.3);
 }
 
 .tab > h2 {
@@ -61,10 +69,101 @@
   color: rgba(0, 0, 0, 0.3);
 }
 
-.tab > h2:hover {
+.mobileTab > h2:hover,
+.mobileTab > .active,
+.tab > h2:hover,
+.tab > .active {
   color: rgba(0, 0, 0, 0.8);
 }
 
-.tab > .active {
-  color: rgba(0, 0, 0, 0.8);
+.marginTop {
+  margin-top: 2.5em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.info {
+  padding: 12px !important;
+  padding-bottom: 6px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.infoBox {
+  padding: 10px !important;
+}
+
+.label {
+  /* padding: 10px; */
+  font-size: 1em;
+  font-weight: bold;
+  margin: 0;
+}
+
+.value {
+  margin: 0;
+  display: inline-block;
+  font-size: 5em;
+}
+
+.mark {
+  display: inline-block;
+  font-size: 2em;
+  margin: 0;
+}
+
+.rating {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-size: 3rem !important;
+}
+
+.subInfo {
+  font-size: 1em;
+}
+
+ul {
+  width: 440px;
+  margin: auto;
+  position: relative;
+  text-align: left;
+  left: 44px;
+}
+
+.line {
+  height: 100%;
+  position: absolute;
+  width: 2px;
+  background-color: rgba(0, 0, 0, 0.7);
+  left: 98px;
+  border-radius: 3px;
+  margin-top: 12px;
+}
+
+.item {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 40px auto;
+  line-height: 34px;
+}
+
+ul li {
+  list-style: none;
+}
+
+.date, .content {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.content {
+  font-size: 16px;
+}
+
+.date:after {
+  content: "●";
+  font-size: 17px;
+  display: inline-block;
+  transform: translate3d(0, -2px, 0);
+  margin: 0 18px;
 }

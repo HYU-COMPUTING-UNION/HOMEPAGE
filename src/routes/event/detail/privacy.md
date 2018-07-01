@@ -1,5 +1,5 @@
 ---
-title: Privacy Policy
+title: 
 ---
 
 안녕하십니까, 제 2대 소프트웨어융합대학 학생회 BE:US 입니다.  

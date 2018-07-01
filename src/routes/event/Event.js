@@ -14,6 +14,7 @@ import s from './Event.css';
 import { Header, Grid, Segment, Image, Statistic } from 'semantic-ui-react';
 import image from './image.png';
 import EventCard from '../../components/EventCard';
+import Link from '../../components/Link';
 
 class Event extends React.Component {
   render() {
@@ -39,32 +40,36 @@ class Event extends React.Component {
               <Grid>
                 <Grid.Row columns={1} only='mobile'>
                   <Grid.Column className={s.boxMargin}>
-                    <EventCard period='3.2' participants='532' budget='12.5'/>
+                    <Link className={s.link} to='/event/detail'>
+                      <EventCard title='2018 hepc' period='1' participants='123' budget='12.5'/>
+                    </Link>
                   </Grid.Column>
                   <Grid.Column className={s.boxMargin}>
-                    <EventCard period='3.2' participants='532' budget='12.5'/>
+                    <EventCard title='2018 학술제' period='3.2' participants='532' budget='12.5'/>
                   </Grid.Column>
                   <Grid.Column className={s.boxMargin}>
-                    <EventCard period='3.2' participants='532' budget='12.5'/>
+                    <EventCard title='2018 소융체전' period='3.2' participants='532' budget='12.5'/>
                   </Grid.Column>
                   <Grid.Column className={s.boxMargin}>
-                    <EventCard period='3.2' participants='532' budget='12.5'/>
+                    <EventCard title='2018 해오름식' period='3.2' participants='532' budget='12.5'/>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
               <Grid className={s.marginTop}>
                 <Grid.Row columns={3} only='computer'>
                   <Grid.Column className={s.boxMargin}>
-                    <EventCard period='3.2' participants='532' budget='12.5'/>
+                    <Link className={s.link} to='/event/detail'>
+                      <EventCard title='2018 hepc' period='1' participants='123' budget='12.5'/>
+                    </Link>
                   </Grid.Column>
                   <Grid.Column className={s.boxMargin}>
-                    <EventCard period='3.2' participants='532' budget='12.5'/>
+                    <EventCard title='2018 학술제' period='3.2' participants='532' budget='12.5'/>
                   </Grid.Column>
                   <Grid.Column className={s.boxMargin}>
-                    <EventCard period='3.2' participants='532' budget='12.5'/>
+                    <EventCard title='2018 소융체전' period='3.2' participants='532' budget='12.5'/>
                   </Grid.Column>
                   <Grid.Column className={s.boxMargin}>
-                    <EventCard period='3.2' participants='532' budget='12.5'/>
+                    <EventCard title='2018 해오름식' period='3.2' participants='532' budget='12.5'/>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

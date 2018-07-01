@@ -15,13 +15,14 @@ import { Segment, Image, Grid } from 'semantic-ui-react';
 
 class EventCard extends React.Component {
   static propTypes = {
+    title: PropTypes.string.isRequired,
     period: PropTypes.string.isRequired,
     participants: PropTypes.string.isRequired,
     budget: PropTypes.string.isRequired,
   };
 
   render() {
-    const { period, participants, budget } = this.props;
+    const { title, period, participants, budget } = this.props;
     return (
       <Segment basic className={s.box}>
         <div className={s.imageContainer}>
@@ -30,7 +31,7 @@ class EventCard extends React.Component {
             </div>
           </div>
           <div className={s.text}>
-            <p>hello</p>
+            <p>{title}</p>
           </div>
         </div>
         <Grid className={s.info}>
